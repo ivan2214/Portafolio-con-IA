@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Host
+Host: https://ivanbong.vercel.app
+
+# Sitemaps
+Sitemap: https://ivanbong.vercel.app/sitemap-index.xml
