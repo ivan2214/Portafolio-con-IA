@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+import CardInfo from "./card-info.astro";
+import MapLeaflet from "./map-leaflet";
+
+interface Props extends HTMLAttributes<"div"> {
+  coordinates: [number, number];
+  className?: string;
+}
+
+const { coordinates, className } = Astro.props;
+---
+
+<CardInfo
+  classNameContent="md:h-full"
+  title="Ubicación"
+  className={className}
+  icon
+>
+  <div
+    class="h-[200px] w-full overflow-hidden rounded-2xl md:h-full md:max-h-[450px]"
+  >
+    <MapLeaflet client:only center={coordinates} zoom={12} />
+  </div>
+</CardInfo>

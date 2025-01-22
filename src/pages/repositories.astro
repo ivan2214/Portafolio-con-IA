@@ -1,0 +1,13 @@
+---
+import RepositoryList from "@/components/repository-list.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout
+  title="Iván Bongiovani - Repositorios"
+  description="Iván Bongiovani - Repositorios"
+>
+  <RepositoryList transition:animate="slide" server:defer /></BaseLayout
+>

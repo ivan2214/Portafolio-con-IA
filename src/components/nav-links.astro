@@ -1,0 +1,29 @@
+---
+import { cn } from "@/lib/utils";
+import { NAV_LINKS } from "@/navigation";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"nav"> {
+	className?: string;
+}
+
+const { className } = Astro.props;
+
+const pathname = new URL(Astro.request.url).pathname;
+---
+
+<nav class={cn("hidden items-center space-x-4 md:flex", className)}>
+  {
+    NAV_LINKS.map((link) => (
+      <a
+        href={link.href}
+        class={cn(
+          "font-medium text-sm transition-colors hover:text-primary",
+          pathname === link.href ? "text-primary" : "text-muted-foreground"
+        )}
+      >
+        {link.title}
+      </a>
+    ))
+  }
+</nav>

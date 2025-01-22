@@ -1,0 +1,24 @@
+---
+import Masonry from "./masonry.astro";
+
+import { fetchRepositories } from "@/lib/githubApi";
+import type { Repository } from "@/types";
+import MasonryItem from "./masonry-item.astro";
+import RepositoryCard from "./repository-card.astro";
+
+const repositories = await fetchRepositories();
+
+if (!repositories) {
+	return Astro.redirect("/");
+}
+---
+
+<Masonry>
+  {
+    repositories.map((repository: Repository) => (
+      <MasonryItem slot="items">
+        <RepositoryCard repository={repository} />
+      </MasonryItem>
+    ))
+  }
+</Masonry>

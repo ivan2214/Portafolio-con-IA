@@ -1,0 +1,85 @@
+---
+import { cn } from "@/lib/utils";
+import type { Repository } from "@/types";
+import { Badge } from "./ui/badge";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "./ui/card";
+
+interface Props {
+	repository: Repository;
+}
+
+const { repository } = Astro.props;
+
+const hasImage =
+	repository.image && repository.image !== "" && repository.image.length > 0;
+
+// Genera un número aleatorio de columnas y filas para cada card
+const getRandomColspan = () => Math.floor(Math.random() * 2) + 1; // Aleatorio entre 1 y 2 columnas
+const getRandomRowspan = () => Math.floor(Math.random() * 2) + 1; // Aleatorio entre 1 y 2 filas
+
+const col = `col-span-${getRandomColspan()}`;
+let row = `row-span-${getRandomRowspan()}`;
+
+// Si ocupa 2 columnas, entonces ocupa 2 filas
+if (col === "col-span-2") {
+	row = "row-span-2";
+}
+---
+
+<Card
+  className={cn(
+    "relative h-auto w-full rounded-2xl",
+    hasImage ? "h-full" : "h-fit",
+    col,
+    row
+  )}
+>
+  {
+    hasImage ? (
+      <CardHeader className="mt-4">
+        <img
+          src={repository.image}
+          alt={repository.name}
+          class="max-h-[200px] w-full rounded-2xl object-cover"
+        />
+      </CardHeader>
+    ) : (
+      <CardHeader className="mt-4">
+        <a class="hover:underline" href={`/repository/${repository?.id}`}>
+          <CardTitle className="font-bold text-2xl">
+            {repository.name}
+          </CardTitle>
+        </a>
+      </CardHeader>
+    )
+  }
+
+  <CardContent>
+    {
+      hasImage && (
+        <a class="hover:underline" href={`/repository/${repository?.id}`}>
+          <CardTitle className="font-bold text-2xl">
+            {repository.name}
+          </CardTitle>
+        </a>
+      )
+    }
+    <CardDescription className="whitespace-pre-wrap">
+      {
+        repository.description ??
+          "Click en el titulo para leer el readme del proyecto"
+      }
+    </CardDescription>
+  </CardContent>
+  {
+    repository.language && (
+      <Badge className="absolute top-2 right-2">{repository.language}</Badge>
+    )
+  }
+</Card>

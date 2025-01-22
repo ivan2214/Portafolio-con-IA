@@ -1,0 +1,29 @@
+---
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { SOCIAL_LINKS } from "@/navigation";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"nav"> {
+  className?: string;
+}
+
+const { className, ...props } = Astro.props;
+---
+
+<nav class={cn("flex items-center space-x-1", className)} {...props}>
+  {
+    SOCIAL_LINKS.map((link) => (
+      <Button key={link.name} variant="ghost" size="icon">
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transition-colors hover:text-primary"
+        >
+          <span class="sr-only">{link.name}</span>
+        </a>
+      </Button>
+    ))
+  }
+</nav>

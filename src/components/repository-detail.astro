@@ -1,0 +1,106 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { Repository } from "@/types";
+import sanitizeHtml from "sanitize-html";
+
+import ZoomableImage from "./zoomable-image.astro";
+
+interface Props {
+  repository: Repository;
+}
+
+const { repository } = Astro.props;
+
+if (!repository) {
+  Astro.redirect("/");
+}
+
+// Sanitizar el HTML del README
+const sanitizedHtml = sanitizeHtml(repository.readme || "", {
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat(["pre", "code"]),
+  allowedAttributes: {
+    ...sanitizeHtml.defaults.allowedAttributes,
+    code: ["class"],
+  },
+});
+
+export const prerender = true;
+---
+
+<Card className="w-full h-full">
+  <CardHeader>
+    {
+      repository?.image && (
+        <ZoomableImage src={repository?.image} alt={repository?.name} />
+      )
+    }
+    <CardTitle className="my-2 text-3xl">{repository?.name}</CardTitle>
+  </CardHeader>
+  <CardContent>
+    {
+      repository.description && (
+        <p class="mb-4 text-lg">{repository?.description}</p>
+      )
+    }
+    {
+      repository.language && (
+        <p class="mb-4">
+          <strong>Lenguaje:</strong>
+          {repository?.language}
+        </p>
+      )
+    }
+
+    {
+      repository?.topics && repository?.topics?.length > 0 && (
+        <div class="mb-4 flex flex-wrap gap-2">
+          {repository.topics?.map((topic: string) => (
+            <Badge
+              variant={Math.random() > 0.5 ? "outline" : "default"}
+              className="select-none"
+            >
+              {topic}
+            </Badge>
+          ))}
+        </div>
+      )
+    }
+
+    <div class="mb-6 flex space-x-4">
+      <Button variant="outline">
+        <a
+          href={repository?.html_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center"
+        >
+          Ver en GitHub
+        </a>
+      </Button>
+      {
+        repository?.homepage && (
+          <Button>
+            <a
+              href={repository?.homepage}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center"
+            >
+              Ver en sitio web
+            </a>
+          </Button>
+        )
+      }
+    </div>
+    {
+      repository?.readme && (
+        <div class="prose dark:prose-invert rounded border p-4">
+          <h2 class="mb-4 font-bold text-2xl">README.md</h2>
+          <div set:html={sanitizedHtml} />
+        </div>
+      )
+    }
+  </CardContent>
+</Card>

@@ -1,11 +1,216 @@
 ---
-import Welcome from "../components/Welcome.astro";
-import Layout from "../layouts/Layout.astro";
+import bitMojiHi from "@/assets/bitmoji/hi.webp";
+// images
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import CardInfo from "@/components/card-info.astro";
+
+import XCard from "@/components/x-card.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { cn } from "@/lib/utils";
+
+import {
+	Download,
+	File,
+	FolderGit2,
+	Joystick,
+	Laptop,
+	Podcast,
+	Quote,
+	User,
+} from "lucide-react";
+
+import { Image } from "astro:assets";
+import CurrentTimeCard from "@/components/current-time-card.astro";
+import LocationCard from "@/components/location-card.astro";
+import { Button } from "@/components/ui/button";
+import { EXPERIENCES } from "@/constants";
+
+const tucumanTime = new Date().toLocaleTimeString("es-AR", {
+	timeZone: "America/Argentina/Tucuman",
+	hour12: false,
+});
+
+const coordinates: [number, number] = [-26.9227, -65.3375]; // Latitude and Longitude for Tucumán
+
+const timezone = Intl.DateTimeFormat("es-AR").resolvedOptions().timeZone;
+
+export const prerender = true; // para hacer statica la pagina
 ---
 
-<Layout>
-  <Welcome />
-</Layout>
+<BaseLayout
+  title="Iván Bongiovani - Full Stack Developer"
+  description="Iván Bongiovani - Full Stack Developer - Portfolio, Repositories, CV, About Me, Contact, Timezone, Now, Experience, X, Studies, Study, Twitter, Github Tailwindcss, React, Nextjs, Vitejs, Express, Nestjs, Prisma, Docker, Git, JavaScript, TypeScript, Astro, Shadcn"
+>
+  <section class="container mx-auto p-10">
+    <h1 class="mb-8 font-bold text-3xl text-primary">
+      Bienvenido a mi portafolio. Explora mis repositorios y conversa con una IA
+      capaz de responder cualquier pregunta sobre ellos, desde la tecnología
+      utilizada hasta detalles sobre funcionalidades específicas y explicaciones
+      del código.
+    </h1>
+    <section class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <CardInfo className="h-full md:col-span-2" title="Sobre Mí">
+        <Podcast
+          slot="icon"
+          className="mr-2 hover:text-primary duration-300 transition-colors"
+        />
+        <section
+          class="flex h-full w-full items-center justify-between gap-2 md:items-start"
+        >
+          <p class="h-full md:w-3/4 md:border-r-2 md:pr-5">
+            Hola, soy <span class="font-bold text-primary"
+              >Iván Bongiovanni</span
+            >, un desarrollador full stack apasionado por aprender nuevas
+            tecnologías, con un enfoque especial en inteligencia artificial y la
+            creación de soluciones innovadoras.
+          </p>
+          <Image
+            src={bitMojiHi}
+            class="hidden aspect-square w-1/4 object-cover object-center md:block"
+            alt="Personaje animado saludando con una mano"
+            loading="eager"
+          />
+        </section>
+      </CardInfo>
+
+      <CardInfo
+        transition:name="repositories"
+        link="/repositories"
+        title="Repositorios"
+        className="h-full rounded-2xl transition-transform hover:scale-105"
+        icon
+      >
+        <FolderGit2
+          slot="icon"
+          className="mr-2 hover:text-primary duration-300 transition-colors"
+        />
+        <section
+          class="flex h-full w-full items-center justify-between gap-2 md:items-start"
+        >
+          <p class="h-full">
+            En este espacio, podras encontrar mis proyectos y contribuciones a
+            Github
+          </p>
+        </section>
+      </CardInfo>
+
+      <CardInfo title="Frase Favorita" icon>
+        <span
+          slot="icon"
+          class={cn("mr-2", Math.random() > 0.5 && "text-primary")}
+        >
+          <Quote />
+        </span>
+        <p>"A mover las manitas" - midudev</p>
+      </CardInfo>
+
+      <CardInfo
+        className="col-span-1 md:col-span-2"
+        title="Proyecto Actual"
+        icon
+      >
+        <Laptop
+          slot="icon"
+          className="mr-2 hover:text-primary duration-300 transition-colors"
+        />
+        <p>
+          Actualmente, estoy desarrollando una aplicación con inteligencia
+          artificial que ofrece recomendaciones personalizadas para mejorar un
+          CV, basándose en la descripción de una oferta laboral y el CV anterior
+          del usuario.
+        </p>
+      </CardInfo>
+
+      <LocationCard
+        className="col-span-1 md:row-span-3 md:h-full"
+        coordinates={coordinates}
+      />
+
+      <CardInfo
+        className="col-span-1 md:col-span-2 md:row-span-2"
+        title="Experiencia"
+        icon
+      >
+        <User
+          slot="icon"
+          className="mr-2 hover:text-primary duration-300 transition-colors"
+        />
+        <ul class="list-disc pl-5">
+          {
+            EXPERIENCES.map((exp) => (
+              <li>
+                <h3 class="font-semibold text-lg">{exp.position}</h3>
+                {exp.link ? (
+                  <a
+                    class="text-primary text-sm underline"
+                    href={exp?.link ?? ""}
+                  >
+                    {exp.company}
+                  </a>
+                ) : (
+                  <p class="text-primary text-sm"> {exp.company} </p>
+                )}
+                <p class="text-gray-400 text-sm">
+                  {exp.start} - {exp.end}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </CardInfo>
+
+      <CardInfo title="Currículo" icon>
+        <Download
+          slot="icon"
+          className="mr-2 hover:text-primary duration-300 transition-colors"
+        />
+        <figure>
+          <object
+            aria-label="CV Ivan Bongiovanni Front End Developer 2024"
+            data={"pdf/CV-Bongiovanni-Ivan-Front-End-ats.pdf"}
+            type="application/pdf"
+            width="100%"
+            aria-labelledby="pdf-title"
+          >
+            <figcaption id="pdf-title">
+              CV Ivan Bongiovanni Front End Developer 2024
+            </figcaption>
+          </object>
+        </figure>
+        <div class="mt-4 flex flex-col gap-2">
+          <p class="text-muted-foreground text-sm">
+            Ver y descargar mi currículo haciendo clic en el botón de abajo
+          </p>
+          <div
+            class="card-actions mt-2 flex w-full items-center justify-center"
+          >
+            <Button className="rounded-2xl">
+              <a
+                target="_blank"
+                href={"pdf/CV-Bongiovanni-Ivan-Front-End-ats.pdf"}
+                class="flex items-center gap-2"
+              >
+                Descargar currículo
+                <File />
+              </a>
+            </Button>
+          </div>
+        </div>
+      </CardInfo>
+
+      <section class="col-span-1 flex flex-col justify-center gap-4">
+        <CurrentTimeCard time={tucumanTime} timeZone={timezone} />
+
+        <CardInfo title="Dato Curioso" icon>
+          <Joystick
+            slot="icon"
+            className="mr-2 hover:text-primary duration-300 transition-colors"
+          />
+          <p>!Soy muy bueno jugando al Rocket League!</p>
+        </CardInfo>
+      </section>
+
+      <XCard />
+    </section>
+  </section>
+</BaseLayout>

@@ -1,0 +1,46 @@
+---
+import { Button } from "@/components/ui/button";
+
+import { Image } from "astro:assets";
+//images
+import bitMojiWaving from "@/assets/bitmoji/waving.webp";
+import NavLinks from "./nav-links.astro";
+import SocialLinks from "./social-links.astro";
+---
+
+<header
+  class="sticky top-0 z-50 w-full border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+>
+  <div class="container flex h-14 max-w-screen-2xl items-center gap-4 px-5">
+    <div class="flex items-center gap-4">
+      <a href="/" class="flex items-center space-x-2">
+        <div class="h-10 w-10">
+          <Image
+            src={bitMojiWaving}
+            class="h-full w-full"
+            alt="Personaje animado saludando"
+          />
+        </div>
+        <span class="font-bold sm:inline-block">Portafolio IA</span>
+      </a>
+      <NavLinks />
+    </div>
+    <div
+      class="ml-auto flex items-center justify-between space-x-2 md:justify-end"
+    >
+      <div class="hidden w-full flex-1 md:block md:w-auto md:flex-none">
+        <Button className="text-muted-foreground" variant="outline">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://linkedin.com/in/ivan2214"
+          >
+            Contáctame
+          </a>
+        </Button>
+      </div>
+    </div>
+    <SocialLinks />
+  </div>
+  {/* <MobileNav /> */}
+</header>
