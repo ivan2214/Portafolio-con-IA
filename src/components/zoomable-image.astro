@@ -8,8 +8,6 @@ interface Props {
 
 const { src, alt } = Astro.props;
 
-// Asegúrate de que `src` sea el camino completo relativo a /src/assets
-
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/**/*.{jpeg,jpg,png,gif,webp}"
 );
