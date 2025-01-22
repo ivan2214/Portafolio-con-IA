@@ -1,9 +1,10 @@
 ---
 import { Image } from "astro:assets";
+import { Badge } from "./ui/badge";
 
 interface Props {
-	src: string;
-	alt: string;
+  src: string;
+  alt: string;
 }
 
 const { src, alt } = Astro.props;
@@ -11,26 +12,90 @@ const { src, alt } = Astro.props;
 // Asegúrate de que `src` sea el camino completo relativo a /src/assets
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-	"/src/assets/**/*.{jpeg,jpg,png,gif,webp}",
+  "/src/assets/**/*.{jpeg,jpg,png,gif,webp}"
 );
 
 if (!images[src]) {
-	throw new Error(
-		`"${src}" does not exist in glob: "src/assets/**/*.{jpeg,jpg,png,gif,webp}"`,
-	);
+  throw new Error(
+    `"${src}" does not exist in glob: "src/assets/**/*.{jpeg,jpg,png,gif,webp}"`
+  );
 }
 ---
 
 <div class="relative w-full h-96 overflow-hidden rounded-2xl">
   <div
-    class="relative bg-gray-300 w-full h-full cursor-grab active:cursor-grabbing"
+    class="relative bg-gray-300 w-full rounded-2xl h-full cursor-grab active:cursor-grabbing"
     id="image-container"
   >
     <Image
       src={images[src]()}
       alt={alt}
-      class="absolute top-0 rounded-2xl left-0 w-full h-auto object-cover"
+      class="absolute top-0 p-5 rounded-2xl left-0 w-full h-auto object-cover"
       id="zoomable-image"
     />
   </div>
 </div>
+
+<script>
+  const container = document.getElementById(
+    "image-container"
+  ) as HTMLDivElement;
+  const image = document.getElementById("zoomable-image") as HTMLImageElement;
+
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+  let translateX = 0;
+  let translateY = 0;
+  let scale = 1;
+
+  // Iniciar el arrastre al hacer clic
+  container.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    container.style.cursor = "grabbing"; // Cambiar cursor al arrastrar
+  });
+
+  // Mover la imagen mientras se arrastra
+  container.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    translateX += dx;
+    translateY += dy;
+
+    image.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+    startX = e.clientX;
+    startY = e.clientY;
+  });
+
+  // Detener el arrastre al soltar el clic
+  container.addEventListener("mouseup", () => {
+    isDragging = false;
+    container.style.cursor = "grab"; // Restaurar cursor
+  });
+
+  // Asegurarse de que el arrastre se detenga si el cursor sale del contenedor
+  container.addEventListener("mouseleave", () => {
+    isDragging = false;
+    container.style.cursor = "grab";
+  });
+
+  // Ajusta el zoom con la rueda del ratón
+  container.addEventListener("wheel", (e) => {
+    e.preventDefault();
+
+    // Ajusta el zoom según la rueda del ratón
+    const zoomSpeed = 0.1;
+    scale += (e.deltaY * -zoomSpeed) / 100;
+
+    // Permite alejar hasta 0.1x y acercar hasta 5x
+    scale = Math.max(0.1, Math.min(scale, 5));
+
+    image.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  });
+</script>

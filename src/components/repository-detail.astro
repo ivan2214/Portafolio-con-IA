@@ -29,7 +29,7 @@ const sanitizedHtml = sanitizeHtml(repository.readme || "", {
 export const prerender = true;
 ---
 
-<Card className="w-full h-full">
+<Card className="w-full relative h-full">
   <CardHeader>
     {
       repository?.image && (
@@ -103,4 +103,7 @@ export const prerender = true;
       )
     }
   </CardContent>
+  <Badge className="absolute rounded-2xl top-2 right-2"
+    >Zoom y arrastra para mover</Badge
+  >
 </Card>
