@@ -9,14 +9,14 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { cn } from "@/lib/utils";
 
 import {
-	Download,
-	File,
-	FolderGit2,
-	Joystick,
-	Laptop,
-	Podcast,
-	Quote,
-	User,
+  Download,
+  File,
+  FolderGit2,
+  Joystick,
+  Laptop,
+  Podcast,
+  Quote,
+  User,
 } from "lucide-react";
 
 import { Image } from "astro:assets";
@@ -26,8 +26,8 @@ import { Button } from "@/components/ui/button";
 import { EXPERIENCES } from "@/constants";
 
 const tucumanTime = new Date().toLocaleTimeString("es-AR", {
-	timeZone: "America/Argentina/Tucuman",
-	hour12: false,
+  timeZone: "America/Argentina/Tucuman",
+  hour12: false,
 });
 
 const coordinates: [number, number] = [-26.9227, -65.3375]; // Latitude and Longitude for Tucumán
@@ -167,7 +167,7 @@ export const prerender = true; // para hacer statica la pagina
         <figure>
           <object
             aria-label="CV Ivan Bongiovanni Front End Developer 2024"
-            data={"pdf/CV-Bongiovanni-Ivan-Front-End-ats.pdf"}
+            data={"/pdf/CV-Bongiovanni-Ivan-Front-End-ats.pdf"}
             type="application/pdf"
             width="100%"
             aria-labelledby="pdf-title"
@@ -187,7 +187,7 @@ export const prerender = true; // para hacer statica la pagina
             <Button className="rounded-2xl">
               <a
                 target="_blank"
-                href={"pdf/CV-Bongiovanni-Ivan-Front-End-ats.pdf"}
+                href={"/pdf/CV-Bongiovanni-Ivan-Front-End-ats.pdf"}
                 class="flex items-center gap-2"
               >
                 Descargar currículo
