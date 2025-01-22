@@ -15,7 +15,6 @@ import vercel from "@astrojs/vercel";
 // https://astro.build/config
 export default defineConfig({
   site: "https://ivanbong.vercel.app",
-
   env: {
         schema: {
             GITHUB_TOKEN: envField.string({
