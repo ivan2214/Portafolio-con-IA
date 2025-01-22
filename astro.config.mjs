@@ -28,10 +28,7 @@ export default defineConfig({
                 context: "server",
                 access: "secret",
             }),
-            NEXT_PUBLIC_VERCEL_URL: envField.string({
-                context: "client",
-                access: "public",
-            }),
+            
         },
     },
 
