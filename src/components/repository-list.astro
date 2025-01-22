@@ -17,7 +17,7 @@ if (!repositories) {
   {
     repositories.map((repository: Repository) => (
       <MasonryItem slot="items">
-        <RepositoryCard client:load repository={repository} />
+        <RepositoryCard repository={repository} />
       </MasonryItem>
     ))
   }
