@@ -9,7 +9,7 @@ import RepositoryCard from "./repository-card.astro";
 const repositories = await fetchRepositories();
 
 if (!repositories) {
-	return Astro.redirect("/");
+  return Astro.redirect("/");
 }
 ---
 
@@ -17,7 +17,7 @@ if (!repositories) {
   {
     repositories.map((repository: Repository) => (
       <MasonryItem slot="items">
-        <RepositoryCard repository={repository} />
+        <RepositoryCard client:load repository={repository} />
       </MasonryItem>
     ))
   }
