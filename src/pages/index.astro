@@ -8,17 +8,6 @@ import XCard from "@/components/x-card.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { cn } from "@/lib/utils";
 
-import {
-  Download,
-  File,
-  FolderGit2,
-  Joystick,
-  Laptop,
-  Podcast,
-  Quote,
-  User,
-} from "lucide-react";
-
 import { Image } from "astro:assets";
 import CurrentTimeCard from "@/components/current-time-card.astro";
 import LocationCard from "@/components/location-card.astro";
@@ -50,10 +39,6 @@ export const prerender = true; // para hacer statica la pagina
     </h1>
     <section class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       <CardInfo className="h-full md:col-span-2" title="Sobre Mí">
-        <Podcast
-          slot="icon"
-          className="mr-2 hover:text-primary duration-300 transition-colors"
-        />
         <section
           class="flex h-full w-full items-center justify-between gap-2 md:items-start"
         >
@@ -80,10 +65,6 @@ export const prerender = true; // para hacer statica la pagina
         className="h-full rounded-2xl transition-transform hover:scale-105"
         icon
       >
-        <FolderGit2
-          slot="icon"
-          className="mr-2 hover:text-primary duration-300 transition-colors"
-        />
         <section
           class="flex h-full w-full items-center justify-between gap-2 md:items-start"
         >
@@ -99,7 +80,6 @@ export const prerender = true; // para hacer statica la pagina
           slot="icon"
           class={cn("mr-2", Math.random() > 0.5 && "text-primary")}
         >
-          <Quote />
         </span>
         <p>"A mover las manitas" - midudev</p>
       </CardInfo>
@@ -109,10 +89,6 @@ export const prerender = true; // para hacer statica la pagina
         title="Proyecto Actual"
         icon
       >
-        <Laptop
-          slot="icon"
-          className="mr-2 hover:text-primary duration-300 transition-colors"
-        />
         <p>
           Actualmente, estoy desarrollando una aplicación con inteligencia
           artificial que ofrece recomendaciones personalizadas para mejorar un
@@ -131,10 +107,6 @@ export const prerender = true; // para hacer statica la pagina
         title="Experiencia"
         icon
       >
-        <User
-          slot="icon"
-          className="mr-2 hover:text-primary duration-300 transition-colors"
-        />
         <ul class="list-disc pl-5">
           {
             EXPERIENCES.map((exp) => (
@@ -160,10 +132,6 @@ export const prerender = true; // para hacer statica la pagina
       </CardInfo>
 
       <CardInfo title="Currículo" icon>
-        <Download
-          slot="icon"
-          className="mr-2 hover:text-primary duration-300 transition-colors"
-        />
         <figure>
           <object
             aria-label="CV Ivan Bongiovanni Front End Developer 2024"
@@ -191,7 +159,6 @@ export const prerender = true; // para hacer statica la pagina
                 class="flex items-center gap-2"
               >
                 Descargar currículo
-                <File />
               </a>
             </Button>
           </div>
@@ -202,10 +169,6 @@ export const prerender = true; // para hacer statica la pagina
         <CurrentTimeCard time={tucumanTime} timeZone={timezone} />
 
         <CardInfo title="Dato Curioso" icon>
-          <Joystick
-            slot="icon"
-            className="mr-2 hover:text-primary duration-300 transition-colors"
-          />
           <p>!Soy muy bueno jugando al Rocket League!</p>
         </CardInfo>
       </section>

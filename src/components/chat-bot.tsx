@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useChat } from "ai/react";
-import { X } from "lucide-react";
+
 import { useEffect, useRef, useState } from "react";
 
 interface ChatBotProps {
@@ -96,7 +96,7 @@ export function ChatBot({ repository }: ChatBotProps) {
 						onClick={onClose}
 						className="h-6 w-6 rounded-full"
 					>
-						<X className="h-4 w-4" />
+						
 					</Button>
 				</CardTitle>
 			</CardHeader>
