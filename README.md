@@ -1,48 +1,14 @@
-# Astro Starter Kit: Basics
+### Descripción para el README:
 
-```sh
-npm create astro@latest -- --template basics
-```
+**AI-Powered Portfolio with GitHub Project Insights**
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+Este proyecto es un portafolio web interactivo creado con **Next.js 15**, **Google Gemini** y **Vercel AI SDK**, diseñado para mostrar tus proyectos de GitHub de manera innovadora y dinámica. Los visitantes pueden explorar cada proyecto y obtener respuestas detalladas sobre el código a través de un chatbot inteligente que utiliza inteligencia artificial para analizar y explicar las funciones, estructuras y tecnologías del código.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+**Características principales:**
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+- **Integración con GitHub API** para extraer datos de los proyectos y mostrarlos en el portafolio.
+- **Chatbot interactivo** impulsado por **Google Gemini** que responde preguntas sobre el código de cada proyecto, desde explicaciones de funciones hasta sugerencias de mejoras.
+- **Vercel AI SDK** para integrar la inteligencia artificial de manera sencilla y eficiente en el proyecto.
+- **Interfaz de usuario moderna** construida con **Shadcn UI**, garantizando una experiencia visual atractiva y fluida.
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Este portafolio está diseñado para resaltar tus habilidades en desarrollo web y en la integración de tecnologías emergentes como la inteligencia artificial.
