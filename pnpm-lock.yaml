@@ -29,6 +29,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.1
         version: 1.1.1(@types/react@19.0.7)(react@19.0.0)
+      '@types/react':
+        specifier: ^19.0.7
+        version: 19.0.7
       '@types/react-dom':
         specifier: ^19.0.3
         version: 19.0.3(@types/react@19.0.7)
@@ -78,9 +81,6 @@ importers:
       '@types/leaflet':
         specifier: ^1.9.16
         version: 1.9.16
-      '@types/react':
-        specifier: ^19.0.7
-        version: 19.0.7
       '@types/sanitize-html':
         specifier: ^2.13.0
         version: 2.13.0

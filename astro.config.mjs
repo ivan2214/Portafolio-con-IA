@@ -3,13 +3,16 @@ import { defineConfig, envField } from 'astro/config';
 
 import tailwind from '@astrojs/tailwind';
 
-import react from '@astrojs/react';
+
 
 
 import sitemap from "@astrojs/sitemap";
 
 
 import vercel from "@astrojs/vercel";
+
+
+import react from "@astrojs/react";
 
 
 // https://astro.build/config
@@ -34,11 +37,11 @@ export default defineConfig({
 
   integrations: [tailwind({
     applyBaseStyles: false,
-  }), react(), sitemap()],
+  }), sitemap(), react()],
   output:"server",
   adapter: vercel({
-	webAnalytics:{
-		enabled: true
-	}
+    webAnalytics:{
+        enabled: true
+    }
   }),
 });
