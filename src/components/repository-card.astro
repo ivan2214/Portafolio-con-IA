@@ -3,21 +3,21 @@ import { cn } from "@/lib/utils";
 import type { Repository } from "@/types";
 import { Badge } from "./ui/badge";
 import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "./ui/card";
 
 interface Props {
-	repository: Repository;
+  repository: Repository;
 }
 
 const { repository } = Astro.props;
 
 const hasImage =
-	repository.image && repository.image !== "" && repository.image.length > 0;
+  repository.image && repository.image !== "" && repository.image.length > 0;
 
 // Genera un número aleatorio de columnas y filas para cada card
 const getRandomColspan = () => Math.floor(Math.random() * 2) + 1; // Aleatorio entre 1 y 2 columnas
@@ -28,8 +28,11 @@ let row = `row-span-${getRandomRowspan()}`;
 
 // Si ocupa 2 columnas, entonces ocupa 2 filas
 if (col === "col-span-2") {
-	row = "row-span-2";
+  row = "row-span-2";
 }
+
+console.log("Repository Card Image", repository?.image);
+console.log("Has Image?", hasImage);
 ---
 
 <Card
