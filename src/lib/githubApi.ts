@@ -31,8 +31,6 @@ async function assignImageToRepository(
     nameWithoutHyphens.charAt(0).toUpperCase() +
     nameWithoutHyphens.slice(1).toLowerCase();
 
-  console.log("repository", repository);
-
   return repository;
 }
 
@@ -54,7 +52,6 @@ export async function fetchRepositories(): Promise<Repository[] | null> {
   const cachedData = getFromCache(cacheKey);
 
   if (cachedData) {
-    console.log("Data from cache", cachedData);
     return cachedData;
   }
 
@@ -76,7 +73,6 @@ export async function fetchRepositories(): Promise<Repository[] | null> {
     const updatedRepositories = await Promise.all(
       repositories.map(assignImageToRepository)
     );
-    console.log("updatedRepositories", updatedRepositories);
 
     const filteredRepositories = filterRepositories(updatedRepositories);
 
