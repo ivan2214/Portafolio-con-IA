@@ -7,7 +7,6 @@ import sanitizeHtml from "sanitize-html";
 import Prose from "@/components/prose.astro";
 
 import ZoomableImage from "./zoomable-image.astro";
-import { ChromeIcon, GithubIcon } from "lucide-react";
 
 interface Props {
   repository: Repository;
@@ -72,10 +71,8 @@ export const prerender = true;
           href={repository?.html_url}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center"
         >
           Ver en GitHub
-          <GithubIcon className="w-4 h-4 ml-2" />
         </a>
       </Button>
       {
@@ -85,10 +82,8 @@ export const prerender = true;
               href={repository?.homepage}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center"
             >
               Ver en sitio web
-              <ChromeIcon className="w-4 h-4 ml-2" />
             </a>
           </Button>
         )
