@@ -22,9 +22,7 @@ async function assignImageToRepository(
   try {
     await fs.access(pathRepository); // Verifica si el archivo existe
     repository.image = `/src/assets/repositories/${nameToLowerCase}.webp`;
-  } catch (error) {
-    console.log("Error al hacer coincidir la imagen del repositorio", error);
-  }
+  } catch (error) {}
 
   const nameWithoutHyphens = nameToLowerCase.replace(/-/g, " ");
   repository.name =
