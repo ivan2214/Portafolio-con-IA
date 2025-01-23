@@ -1,7 +1,6 @@
 # build output
 dist/
-#Carpeta de vercel
-.vercel
+
 
 
 # generated types
@@ -25,3 +24,5 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+.vercel
