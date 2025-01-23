@@ -7,25 +7,27 @@ import { fetchRepositoryDetails } from "@/lib/githubApi";
 const { id } = Astro.params;
 
 if (!id || id === undefined) {
-	return Astro.redirect("/");
+  return Astro.redirect("/");
 }
 
 const repositoryId = Number.parseInt(id);
 
 if (!repositoryId) {
-	return Astro.redirect("/");
+  return Astro.redirect("/");
 }
 
 const repository = await fetchRepositoryDetails(repositoryId);
 
 if (!repository) {
-	return Astro.redirect("/");
+  return Astro.redirect("/");
 }
 export const prerender = false;
 ---
 
 <BaseLayout>
-  <section class="h-full p-10 w-full container grid place-items-center mx-auto">
+  <section
+    class="h-full px-2 py-10 w-full container grid place-items-center mx-auto"
+  >
     <RepositoryDetail repository={repository} />
     <ChatBot client:load repository={repository} />
   </section>

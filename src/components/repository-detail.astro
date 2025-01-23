@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Repository } from "@/types";
 import sanitizeHtml from "sanitize-html";
+import Prose from "@/components/prose.astro";
 
 import ZoomableImage from "./zoomable-image.astro";
+import { ChromeIcon, GithubIcon } from "lucide-react";
 
 interface Props {
   repository: Repository;
@@ -30,24 +32,24 @@ export const prerender = true;
 ---
 
 <Card className="w-full relative h-full">
-  <CardHeader>
+  <CardHeader className="flex flex-col gap-4">
     {
       repository?.image && (
         <ZoomableImage src={repository?.image} alt={repository?.name} />
       )
     }
-    <CardTitle className="my-2 text-3xl">{repository?.name}</CardTitle>
+    <CardTitle className="text-3xl underline">{repository?.name}</CardTitle>
   </CardHeader>
-  <CardContent>
+  <CardContent className="flex flex-col gap-4 ">
     {
       repository.description && (
-        <p class="mb-4 text-lg">{repository?.description}</p>
+        <p class=" text-lg">{repository?.description}</p>
       )
     }
     {
       repository.language && (
-        <p class="mb-4">
-          <strong>Lenguaje:</strong>
+        <p>
+          <strong>Lenguaje principal:</strong>
           {repository?.language}
         </p>
       )
@@ -55,21 +57,17 @@ export const prerender = true;
 
     {
       repository?.topics && repository?.topics?.length > 0 && (
-        <div class="mb-4 flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2">
+          <strong>Temas:</strong>
           {repository.topics?.map((topic: string) => (
-            <Badge
-              variant={Math.random() > 0.5 ? "outline" : "default"}
-              className="select-none"
-            >
-              {topic}
-            </Badge>
+            <Badge className="select-none rounded-2xl">{topic}</Badge>
           ))}
         </div>
       )
     }
 
-    <div class="mb-6 flex space-x-4">
-      <Button variant="outline">
+    <div class="flex space-x-4">
+      <Button variant="outline" className="rounded-2xl">
         <a
           href={repository?.html_url}
           target="_blank"
@@ -77,11 +75,12 @@ export const prerender = true;
           class="inline-flex items-center"
         >
           Ver en GitHub
+          <GithubIcon className="w-4 h-4 ml-2" />
         </a>
       </Button>
       {
         repository?.homepage && (
-          <Button>
+          <Button className="rounded-2xl">
             <a
               href={repository?.homepage}
               target="_blank"
@@ -89,6 +88,7 @@ export const prerender = true;
               class="inline-flex items-center"
             >
               Ver en sitio web
+              <ChromeIcon className="w-4 h-4 ml-2" />
             </a>
           </Button>
         )
@@ -96,14 +96,13 @@ export const prerender = true;
     </div>
     {
       repository?.readme && (
-        <div class="prose dark:prose-invert rounded border p-4">
-          <h2 class="mb-4 font-bold text-2xl">README.md</h2>
+        <Prose class="prose p-4">
           <div set:html={sanitizedHtml} />
-        </div>
+        </Prose>
       )
     }
   </CardContent>
-  <Badge className="absolute rounded-2xl top-2 right-2"
+  <Badge className="absolute hidden md:block rounded-2xl top-2 right-2"
     >Zoom y arrastra para mover</Badge
   >
 </Card>
