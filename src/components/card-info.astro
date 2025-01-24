@@ -25,10 +25,10 @@ const { title, className, classNameContent, link } = Astro.props;
     link ? (
       <a rel="noopener noreferrer" href={link}>
         <CardHeader>
-          {/* <SquareArrowOutUpRight
-            className="position absolute right-6 group-hover:text-primary "
-            size={20}
-          /> */}
+          <i
+            class="position absolute right-6 group-hover:text-primary "
+            data-lucide="square-arrow-out-up-right"
+          />
           <CardTitle className="flex items-center text-xl font-bold">
             {title}
           </CardTitle>
@@ -51,3 +51,13 @@ const { title, className, classNameContent, link } = Astro.props;
     )
   }
 </Card>
+
+<script>
+  import { SquareArrowOutUpRight, createIcons, icons } from "lucide";
+
+  createIcons({
+    icons: {
+      SquareArrowOutUpRight,
+    },
+  });
+</script>
