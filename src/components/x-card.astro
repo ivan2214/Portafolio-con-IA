@@ -7,13 +7,22 @@ import CardInfo from "./card-info.astro";
 import bitMojiSurprised from "@/assets/bitmoji/surprised-phone.webp";
 
 interface Props extends HTMLAttributes<"div"> {
-	className?: string;
+  className?: string;
 }
 
 const { className } = Astro.props;
 ---
 
-<CardInfo className={className} link={NETWORKS[3].link} title="Perfil de X">
+<CardInfo
+  className={className}
+  link={NETWORKS[3].link}
+  title="Perfil de X"
+  icon
+>
+  <i
+    data-lucide="twitter"
+    slot="icon"
+    class="mr-2 hover:text-primary duration-300 transition-colors"></i>
   <div class="flex h-full w-full flex-col">
     <div>
       <Image
@@ -29,3 +38,13 @@ const { className } = Astro.props;
     </div>
   </div>
 </CardInfo>
+
+<script>
+  import { Twitter, createIcons } from "lucide";
+
+  createIcons({
+    icons: {
+      Twitter,
+    },
+  });
+</script>

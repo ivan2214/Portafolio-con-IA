@@ -13,8 +13,22 @@ const { time, timeZone, className } = Astro.props;
 ---
 
 <CardInfo title="Hora Actual" className={className} icon>
+  <i
+    data-lucide="clock"
+    slot="icon"
+    class="mr-2 hover:text-primary duration-300 transition-colors"></i>
   <p class="mb-2 font-bold text-green-500">{time}</p>
   <p>
     Zona Horaria: <span class="font-bold text-primary">{timeZone}</span>
   </p>
 </CardInfo>
+
+<script>
+  import { createIcons, Clock } from "lucide";
+
+  createIcons({
+    icons: {
+      Clock,
+    },
+  });
+</script>

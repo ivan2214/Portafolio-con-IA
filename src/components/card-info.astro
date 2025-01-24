@@ -11,7 +11,7 @@ interface Props extends HTMLAttributes<"div"> {
   icon?: boolean;
 }
 
-const { title, className, classNameContent, link } = Astro.props;
+const { title, className, icon, classNameContent, link } = Astro.props;
 ---
 
 <Card
@@ -30,6 +30,7 @@ const { title, className, classNameContent, link } = Astro.props;
             data-lucide="square-arrow-out-up-right"
           />
           <CardTitle className="flex items-center text-xl font-bold">
+            {icon && <slot name="icon" />}
             {title}
           </CardTitle>
         </CardHeader>
@@ -41,6 +42,7 @@ const { title, className, classNameContent, link } = Astro.props;
       <>
         <CardHeader>
           <CardTitle className="flex items-center text-xl font-bold">
+            {icon && <slot name="icon" />}
             {title}
           </CardTitle>
         </CardHeader>

@@ -18,9 +18,23 @@ const { coordinates, className } = Astro.props;
   className={className}
   icon
 >
+  <i
+    data-lucide="map-pin"
+    slot="icon"
+    class="mr-2 hover:text-primary duration-300 transition-colors"></i>
   <div
     class="h-[200px] w-full overflow-hidden rounded-2xl md:h-full md:max-h-[450px]"
   >
     <MapLeaflet client:only center={coordinates} zoom={12} />
   </div>
 </CardInfo>
+
+<script>
+  import { createIcons, MapPin } from "lucide";
+
+  createIcons({
+    icons: {
+      MapPin,
+    },
+  });
+</script>
