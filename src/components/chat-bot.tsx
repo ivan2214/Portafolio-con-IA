@@ -94,9 +94,9 @@ export function ChatBot({ repository }: ChatBotProps) {
 					<span>Chat sobre {repository.name}</span>
 					<Button
 						variant="ghost"
-						size="sm"
+						size="icon"
 						onClick={onClose}
-						className="h-6 w-6 rounded-full"
+						className="rounded-full"
 					>
 						<MaterialSymbolsCloseSmallOutline  />
 					</Button>
