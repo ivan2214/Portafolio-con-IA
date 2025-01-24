@@ -51,25 +51,28 @@ function saveToCache(key: string, data: RepositoryDetails) {
   };
 }
 
-// Función para filtrar archivos según la pregunta
+// Función para filtrar archivos según la pregunta y limitar la cantidad de archivos
 function filterFilesByQuestion(
   files: FileDetails[],
-  question: string
+  question: string,
+  maxFiles: number = 5
 ): FileDetails[] {
-  // Extraer palabras clave de la pregunta
   const keywords = question
     .toLowerCase()
     .split(/\s+/) // Dividir en palabras
     .filter((word) => word.length > 2); // Ignorar palabras muy cortas
 
   // Filtrar archivos cuyo nombre o contenido coincida con las palabras clave
-  return files.filter((file) => {
+  const filteredFiles = files.filter((file) => {
     const fileName = file.path.toLowerCase();
     const fileContent = (file.content || "").toLowerCase();
     return keywords.some(
       (keyword) => fileName.includes(keyword) || fileContent.includes(keyword)
     );
   });
+
+  // Limitar la cantidad de archivos
+  return filteredFiles.slice(0, maxFiles);
 }
 
 // Handler principal
@@ -97,27 +100,29 @@ export const POST: APIRoute = async ({ request }) => {
     const userMessage =
       messages.find((msg: Message) => msg.role === "user")?.content || "";
 
-    // Filtrar archivos basados en la pregunta
+    // Filtrar archivos basados en la pregunta y limitar la cantidad de archivos
     const filteredFiles = filterFilesByQuestion(
       repositoryDetails.files,
       userMessage
     );
 
+    // Limitar el contenido de los archivos
+    const limitedFiles = limitFileContent(filteredFiles);
+
     // Reducir el contenido del proyecto al contexto relevante
     const filteredRepositoryDetails = {
       repoTitle: repositoryDetails.repoTitle,
       repoDescription: repositoryDetails.repoDescription,
-      files: filteredFiles,
+      files: limitedFiles,
     };
 
     const contextText = JSON.stringify(filteredRepositoryDetails);
 
     // Contar tokens en el contexto
-
     const tokens = encoder.encode(contextText).length;
     console.log(`Tokens en el contexto: ${tokens}`);
 
-    const maxTokens = 8516 + 189; // Máximo de tokens permitidos por llamada
+    const maxTokens = 4750 + 189; // Máximo de tokens permitidos por llamada
 
     if (tokens > maxTokens) {
       return new Response(
@@ -134,10 +139,10 @@ export const POST: APIRoute = async ({ request }) => {
     const result = streamText({
       model,
       system: `
-          Eres un asistente de IA experto en explicar y analizar códigos y proyectos alojados en GitHub. Responde de forma clara, precisa y concisa. Limita tu respuesta al contexto proporcionado y usa solo la información incluida en: ${JSON.stringify(
-            filteredRepositoryDetails
-          )}. No hagas suposiciones ni agregues información externa al proyecto. Mantén las respuestas dentro de 60 palabras y utiliza código entre comillas cuando sea necesario, como \`\`\`ts código \`\`\`.
-`,
+      Eres un asistente de IA experto en explicar y analizar códigos y proyectos alojados en GitHub. Responde de forma clara, precisa y concisa. Limita tu respuesta al contexto proporcionado y usa solo la información incluida en: ${JSON.stringify(
+        filteredRepositoryDetails
+      )}. No hagas suposiciones ni agregues información externa al proyecto. Mantén las respuestas dentro de 60 palabras y utiliza código entre comillas cuando sea necesario, como \`\`\`ts código \`\`\`. No incluyas procesos de pensamiento ni análisis internos, solo proporciona la respuesta final.
+      `,
       messages,
       maxSteps: 5, // Numero de pasos para generar la respuesta mientras menos es mejor ya que el modelo es más pequeño
       temperature: 0.5, // Nivel de aleatoriedad en la respuesta
@@ -187,7 +192,7 @@ async function fetchRepoDetailsAndFiles(
   }
 }
 
-// Función para obtener todos los archivos y carpetas del repositorio
+// Función para obtener todos los archivos y carpetas del repositorio, filtrando solo los archivos deseados
 async function fetchRepoFiles(repoFullName: string) {
   try {
     // Obtener el árbol del repositorio
@@ -208,17 +213,20 @@ async function fetchRepoFiles(repoFullName: string) {
 
     const tree = await treeResponse.json();
 
-    // Filtrar solo los archivos con extensión .ts o .tsx
-    const tsFiles = tree.tree.filter((node: { type: string; path: string }) => {
-      return (
-        node.type === "blob" &&
-        (node.path.endsWith(".ts") || node.path.endsWith(".tsx"))
-      );
-    });
+    // Filtrar solo los archivos con las extensiones deseadas
+    const allowedExtensions = [".ts", ".tsx", ".astro", ".js", ".jsx"];
+    const filteredFiles = tree.tree.filter(
+      (node: { type: string; path: string }) => {
+        return (
+          node.type === "blob" &&
+          allowedExtensions.some((ext) => node.path.endsWith(ext))
+        );
+      }
+    );
 
     // Descargar contenido de cada archivo filtrado
     const files = await Promise.all(
-      tsFiles.map(async (node: { path: string }) => {
+      filteredFiles.map(async (node: { path: string }) => {
         const content = await fetchFileContent(repoFullName, node.path);
         return { path: node.path, content };
       })
@@ -255,4 +263,19 @@ async function fetchFileContent(repoFullName: string, filePath: string) {
     console.error(`Error fetching file content (${filePath}):`, error);
     return "Error loading file content.";
   }
+}
+
+// Función para limitar el contenido de los archivos
+function limitFileContent(
+  files: FileDetails[],
+  maxLines: number = 100
+): FileDetails[] {
+  return files.map((file) => {
+    if (file.content) {
+      const lines = file.content.split("\n");
+      const limitedContent = lines.slice(0, maxLines).join("\n");
+      return { ...file, content: limitedContent };
+    }
+    return file;
+  });
 }
