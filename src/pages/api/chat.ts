@@ -3,6 +3,7 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import { type Message, streamText } from "ai";
 import type { APIRoute } from "astro";
+import { encodingForModel } from "js-tiktoken";
 
 export const prerender = false;
 
@@ -14,6 +15,9 @@ const lmstudio = createOpenAICompatible({
   name: "lmstudio",
   baseURL: "http://localhost:1234/v1",
 });
+
+// Configurar el encoder para contar tokens
+const encoder = encodingForModel("gpt-4");
 
 interface FileDetails {
   path: string; // Ruta del archivo o carpeta
@@ -106,8 +110,26 @@ export const POST: APIRoute = async ({ request }) => {
       files: filteredFiles,
     };
 
-    const model = google("gemini-1.5-pro-latest");
-    const modelLocal = lmstudio("");
+    const contextText = JSON.stringify(filteredRepositoryDetails);
+
+    // Contar tokens en el contexto
+
+    const tokens = encoder.encode(contextText).length;
+    console.log(`Tokens en el contexto: ${tokens}`);
+
+    const maxTokens = 8516 + 189; // Máximo de tokens permitidos por llamada
+
+    if (tokens > maxTokens) {
+      return new Response(
+        `El contexto supera el límite de tokens (${tokens} > ${maxTokens}). Reduzca el tamaño del texto.`,
+        { status: 400, statusText: "Limit exceeded" }
+      );
+    }
+
+    const modelProd = google("gemini-1.5-pro-latest");
+    const modelLocal = lmstudio("deepseek-r1-distill-qwen-7b");
+
+    const model = import.meta.env.PROD ? modelProd : modelLocal;
 
     const result = streamText({
       model,
