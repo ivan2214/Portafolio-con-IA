@@ -1,5 +1,6 @@
 "use client";
 
+import {X} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -86,8 +87,8 @@ export function ChatBot({ repository }: ChatBotProps) {
 	};
 
 	return (
-		<Card className="fixed right-4 bottom-4 w-[500px] rounded-lg bg-background/80 shadow-xl backdrop-blur-sm transition-all duration-300">
-			<CardHeader className="rounded-t-lg bg-primary text-primary-foreground">
+		<Card className="fixed right-4 bottom-4 md:w-[500px] rounded-2xl bg-background/80 shadow-xl backdrop-blur-sm transition-all duration-300">
+			<CardHeader className="rounded-t-2xl shadow-2xl bg-primary text-primary-foreground">
 				<CardTitle className="flex items-center justify-between">
 					<span>Chat sobre {repository.name}</span>
 					<Button
@@ -96,12 +97,12 @@ export function ChatBot({ repository }: ChatBotProps) {
 						onClick={onClose}
 						className="h-6 w-6 rounded-full"
 					>
-						
+						<X  />
 					</Button>
 				</CardTitle>
 			</CardHeader>
 			<CardContent
-				className="h-80 space-y-4 overflow-y-auto overflow-x-hidden p-4"
+				className="h-80 space-y-4 overflow-y-scroll overflow-x-hidden p-4"
 				ref={chatContentRef}
 			>
 				{messages.length === 0 && (
@@ -111,7 +112,7 @@ export function ChatBot({ repository }: ChatBotProps) {
 							{typicalQuestions.map((question) => (
 								<Badge
 									variant="outline"
-									className="cursor-pointer rounded py-2 transition-colors duration-200 hover:bg-primary/10"
+									className="cursor-pointer rounded-2xl py-2 transition-colors duration-200 hover:bg-primary/10"
 									key={question}
 									onClick={() => addQuestion(question)}
 								>
@@ -125,21 +126,21 @@ export function ChatBot({ repository }: ChatBotProps) {
 					<div
 						key={message.id}
 						className={cn(
-							"max-w-xs rounded-lg p-2",
+							"max-w-xs rounded-2xl p-2",
 							message.role === "user"
-								? "ml-auto overflow-hidden rounded bg-primary text-primary-foreground"
-								: "mr-auto overflow-hidden rounded bg-secondary text-secondary-foreground",
+								? "ml-auto overflow-hidden bg-primary text-primary-foreground"
+								: "mr-auto overflow-hidden bg-secondary text-secondary-foreground",
 						)}
 					>
-						<strong className={cn("mb-2 block font-semibold")}>
+						
 							{message.role === "user" ? (
-								<Badge variant="outline" className="text-primary-foreground">
+								<Badge variant="outline" className="text-primary-foreground rounded-2xl">
 									Tú:{" "}
 								</Badge>
 							) : (
-								<Badge>IA: </Badge>
+								<Badge className="rounded-2xl">IA: </Badge>
 							)}
-						</strong>
+						
 						<div>
 							{message.content.split("```").map((part, index) => {
 								// Si es un bloque de código (en pares de "```"), lo renderizamos como código

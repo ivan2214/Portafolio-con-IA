@@ -1,5 +1,6 @@
 import { GITHUB_TOKEN, GOOGLE_API_KEY } from "astro:env/server";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import { type Message, streamText } from "ai";
 import type { APIRoute } from "astro";
 
@@ -7,6 +8,11 @@ export const prerender = false;
 
 const google = createGoogleGenerativeAI({
   apiKey: GOOGLE_API_KEY,
+});
+
+const lmstudio = createOpenAICompatible({
+  name: "lmstudio",
+  baseURL: "http://localhost:1234/v1",
 });
 
 interface FileDetails {
@@ -101,6 +107,7 @@ export const POST: APIRoute = async ({ request }) => {
     };
 
     const model = google("gemini-1.5-pro-latest");
+    const modelLocal = lmstudio("");
 
     const result = streamText({
       model,

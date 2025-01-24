@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^1.1.1",
+    "@ai-sdk/openai-compatible": "^0.1.2",
     "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^4.1.6",
     "@astrojs/sitemap": "^3.2.1",
@@ -24,6 +25,8 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "leaflet": "^1.9.4",
+    "lucide": "^0.474.0",
+    "lucide-react": "^0.474.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sanitize-html": "^2.14.0",
