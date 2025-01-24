@@ -1,6 +1,6 @@
 "use client";
 
-import {X} from "lucide-react";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { useChat } from "ai/react";
 
 import { useEffect, useRef, useState } from "react";
+import { MaterialSymbolsCloseSmallOutline } from "./icons/x";
 
 interface ChatBotProps {
 	repository: {
@@ -97,7 +98,7 @@ export function ChatBot({ repository }: ChatBotProps) {
 						onClick={onClose}
 						className="h-6 w-6 rounded-full"
 					>
-						<X  />
+						<MaterialSymbolsCloseSmallOutline  />
 					</Button>
 				</CardTitle>
 			</CardHeader>
