@@ -1,13 +1,28 @@
 ---
+import MasonryItem from "@/components/masonry-item.astro";
+import Masonry from "@/components/masonry.astro";
+import RepositoryCardSkeleton from "@/components/repository-card-skeleton.astro";
 import RepositoryList from "@/components/repository-list.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 export const prerender = true;
+
+const items = Array.from({ length: 10 }, (_, i) => i);
 ---
 
 <BaseLayout
   title="Iván Bongiovani - Repositorios"
   description="Iván Bongiovani - Repositorios"
 >
-  <RepositoryList transition:animate="slide" server:defer /></BaseLayout
->
+  <RepositoryList transition:animate="slide" server:defer>
+    <Masonry slot="fallback">
+      {
+        items.map((items) => (
+          <MasonryItem slot="items">
+            <RepositoryCardSkeleton />
+          </MasonryItem>
+        ))
+      }
+    </Masonry>
+  </RepositoryList>
+</BaseLayout>
