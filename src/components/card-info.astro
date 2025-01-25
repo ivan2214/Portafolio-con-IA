@@ -20,6 +20,8 @@ const { title, className, icon, classNameContent, link } = Astro.props;
     className,
     link && "cursor-pointer hover:border-primary"
   )}
+  title={title}
+  aria-label={title}
 >
   {
     link ? (

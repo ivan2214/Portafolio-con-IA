@@ -14,13 +14,21 @@ const { className, ...props } = Astro.props;
 <nav class={cn("flex items-center space-x-1", className)} {...props}>
   {
     SOCIAL_LINKS.map((link) => (
-      <Button key={link.name} variant="ghost" size="icon">
+      <Button
+        key={link.name}
+        variant="ghost"
+        size="icon"
+        aria-label={link.name}
+        title={link.name}
+        className="rounded-full"
+      >
         <a
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
           class="transition-colors hover:text-primary"
         >
+          <link.icon className="w-10 h-10" />
           <span class="sr-only">{link.name}</span>
         </a>
       </Button>

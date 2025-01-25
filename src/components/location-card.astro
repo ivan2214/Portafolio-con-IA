@@ -25,7 +25,7 @@ const { coordinates, className } = Astro.props;
   <div
     class="h-[200px] w-full overflow-hidden rounded-2xl md:h-full md:max-h-[450px]"
   >
-    <MapLeaflet client:only center={coordinates} zoom={12} />
+    <MapLeaflet client:only="react" center={coordinates} zoom={12} />
   </div>
 </CardInfo>
 
