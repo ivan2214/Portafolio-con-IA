@@ -6,6 +6,7 @@ import CardInfo from "./card-info.astro";
 
 import bitMojiSurprised from "@/assets/bitmoji/surprised-phone.webp";
 import { cn } from "@/lib/utils";
+import { LineMdTwitterX } from "./icons";
 
 interface Props extends HTMLAttributes<"div"> {
   className?: string;
@@ -21,11 +22,7 @@ const { className } = Astro.props;
   title="Perfil de X"
   icon
 >
-  <i
-    data-lucide="twitter"
-    slot="icon"
-    class="mr-2 hover:text-primary duration-300 transition-colors"></i>
-
+  <LineMdTwitterX className="mr-2" slot="icon" />
   <section
     class="h-full w-full flex flex-col items-center gap-4 justify-between"
   >
@@ -40,13 +37,3 @@ const { className } = Astro.props;
     </p>
   </section>
 </CardInfo>
-
-<script>
-  import { X, createIcons } from "lucide";
-
-  createIcons({
-    icons: {
-      X,
-    },
-  });
-</script>

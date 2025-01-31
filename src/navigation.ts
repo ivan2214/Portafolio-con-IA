@@ -1,7 +1,5 @@
 import type { NavLink, SocialLink } from "@/types";
-import { MdiGithub } from "./components/icons/github";
-import { MdiLinkedin } from "./components/icons/linkedin";
-import { MdiTwitter } from "./components/icons/twitter";
+import { MdiGithub, MdiLinkedin, LineMdTwitterX } from "./components/icons";
 
 export const NAV_LINKS: NavLink[] = [
   {
@@ -24,6 +22,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: "Twitter",
     href: "https://twitter.com/bongiovanniDev",
-    icon: MdiTwitter,
+    icon: LineMdTwitterX,
   },
 ];

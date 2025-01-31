@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { useChat } from "ai/react";
 
 import { useEffect, useRef, useState } from "react";
-import { MaterialSymbolsCloseSmallOutline } from "./icons/x";
+import { MaterialSymbolsCloseSmallOutline } from "@/components/icons";
 
 interface ChatBotProps {
   repository: {
