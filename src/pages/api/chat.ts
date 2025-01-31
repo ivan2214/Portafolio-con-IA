@@ -132,7 +132,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const modelProd = google("gemini-1.5-pro-latest");
-    const modelLocal = lmstudio("deepseek-r1-distill-qwen-7b");
+    const modelLocal = lmstudio("deepseek-r1-distill-qwen-1.5b");
 
     const model = import.meta.env.PROD ? modelProd : modelLocal;
 
@@ -140,23 +140,26 @@ export const POST: APIRoute = async ({ request }) => {
       model,
       system: `
       Eres un asistente de IA experto en explicar detalles de repositorios de GitHub.
-      Tu objetivo es ayudar al usuario a entender de que trata el repositorio.
+      Tu objetivo es ayudar al usuario a entender de qué trata el repositorio.
       Responder siempre en español.
       No proporcionas información personal o sensible.
       No proporcionas información que pueda ser utilizada para hackear o dañar sistemas.
-      No proporciones codigo, archivos del repositorio o información sensible.
-      Limitate a responder el mensaje del usuario.
-      Si el usuario pregunta sobre un archivo o carpeta, proporciona una breve explicación del contenido del archivo o carpeta pero no proporciones el contenido.
+      No proporcionas código, archivos del repositorio o información sensible.
+      Limítate a responder el mensaje del usuario.
+      Si el usuario pregunta sobre un archivo o carpeta, proporciona una breve explicación del contenido del archivo o carpeta, pero no proporciones el contenido.
       Si el usuario pregunta sobre el repositorio en general, proporciona una descripción general del repositorio.
-      Aqui está todo el contexto del repositorio:
+      Aquí está todo el contexto del repositorio:
       ${contextText}
       `,
       messages,
-      maxSteps: 5, // Numero de pasos para generar la respuesta mientras menos es mejor ya que el modelo es más pequeño
-      temperature: 0.5, // Nivel de aleatoriedad en la respuesta
+      maxTokens: 512,
+      temperature: 0.3,
+      maxRetries: 3,
     });
 
-    return result.toDataStreamResponse();
+    return result.toDataStreamResponse({
+      sendReasoning: true,
+    });
   } catch (error) {
     console.error("Error processing request:", error);
     return new Response(null, { status: 400 });
