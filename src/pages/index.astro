@@ -175,16 +175,19 @@ export const prerender = true; // para hacer statica la pagina
 
       <XCard />
 
-      <CardInfo title="Proyecto Actual" icon>
+      <CardInfo
+        className="col-span-1 md:col-span-2 md:h-full"
+        title="Proyecto Actual"
+        icon
+      >
         <i
           data-lucide="laptop"
           slot="icon"
           class="mr-2 hover:text-primary duration-300 transition-colors"></i>
         <p class="text-muted-foreground leading-loose">
-          Actualmente, estoy desarrollando una aplicación con inteligencia
-          artificial que ofrece recomendaciones personalizadas para mejorar un
-          CV, basándose en la descripción de una oferta laboral y el CV anterior
-          del usuario.
+          Estoy desarrollando una app con inteligencia artificial que analiza
+          ofertas laborales y CVs previos para ofrecer recomendaciones
+          personalizadas y mejorar la empleabilidad del usuario.
         </p>
       </CardInfo>
 
@@ -193,25 +196,28 @@ export const prerender = true; // para hacer statica la pagina
         coordinates={coordinates}
       /> -->
 
-      <CardInfo title="Frase Favorita" icon>
-        <span slot="icon">
+      <section class="flex flex-col gap-4 w-full col-span-2">
+        <CardInfo title="Frase Favorita" icon>
+          <span slot="icon">
+            <i
+              data-lucide="quote"
+              slot="icon"
+              class="mr-2 hover:text-primary duration-300 transition-colors"
+            ></i>
+          </span>
+          <p class="text-muted-foreground">"A mover las manitas" - midudev</p>
+        </CardInfo>
+
+        <CurrentTimeCard time={tucumanTime} timeZone={timezone} />
+
+        <CardInfo className="col-span-1" title="Dato Curioso" icon>
           <i
-            data-lucide="quote"
+            data-lucide="joystick"
             slot="icon"
             class="mr-2 hover:text-primary duration-300 transition-colors"></i>
-        </span>
-        <p class="text-muted-foreground">"A mover las manitas" - midudev</p>
-      </CardInfo>
-
-      <CurrentTimeCard time={tucumanTime} timeZone={timezone} />
-
-      <CardInfo title="Dato Curioso" icon>
-        <i
-          data-lucide="joystick"
-          slot="icon"
-          class="mr-2 hover:text-primary duration-300 transition-colors"></i>
-        <p class="text-muted-foreground">Soy alergico al cambio de clima!</p>
-      </CardInfo>
+          <p class="text-muted-foreground">Soy alergico al cambio de clima!</p>
+        </CardInfo>
+      </section>
     </section>
   </section>
 </BaseLayout>
