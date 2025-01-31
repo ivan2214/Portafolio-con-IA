@@ -33,7 +33,7 @@ export function ChatBot({ repository }: ChatBotProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const chatContentRef = useRef<HTMLDivElement>(null);
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading, data } =
+  const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
       api: "/api/chat",
       body: { repositoryId: repository?.id },
