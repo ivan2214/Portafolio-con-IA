@@ -19,7 +19,6 @@ interface ChatFooterProps {
   isStopped: boolean;
   setIsStopped: (value: boolean) => void;
   setIsSendMessage: (value: boolean) => void;
-  reload: () => void;
   stop: () => void;
 }
 
@@ -33,7 +32,7 @@ export function ChatFooter({
   isLoading,
   isSendMessage,
   setIsSendMessage,
-  reload,
+
   stop,
 }: ChatFooterProps) {
   return (
@@ -52,29 +51,20 @@ export function ChatFooter({
               setIsSendMessage(true);
               setIsStopped(false);
             }}
-            className="rounded-2xl"
+            className="rounded-full"
             disabled={isLoading}
             type="submit"
+            size="icon"
           >
             {isLoading ? <EosIconsThreeDotsLoading /> : <RiSendPlaneFill />}
           </Button>
-          {isSendMessage && (
-            <Button
-              className="rounded-2xl"
-              variant="outline"
-              disabled={isLoading}
-              onClick={() => {
-                reload();
-                setIsStopped(false);
-              }}
-            >
-              <MaterialSymbolsLightDirectorySync />
-            </Button>
-          )}
+
           {isSendMessage && !isStopped && (
             <Button
-              className="rounded-2xl"
+              size="icon"
+              className="rounded-full"
               variant="destructive"
+              disabled={isLoading}
               onClick={() => {
                 stop();
 

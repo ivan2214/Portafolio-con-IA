@@ -30,6 +30,7 @@ export function ChatBot({ repository }: ChatBotProps) {
   const chatContentRef = useRef<HTMLDivElement>(null!);
 
   const {
+    error,
     messages,
     input,
     handleInputChange,
@@ -103,6 +104,11 @@ export function ChatBot({ repository }: ChatBotProps) {
     <Card className="fixed right-4 bottom-4 md:w-[500px] rounded-2xl bg-background/80 shadow-xl backdrop-blur-sm transition-all duration-300">
       <ChatHeader repository={repository} onClose={onClose} />
       <ChatContent
+        isLoading={isLoading}
+        isSendMessage={isSendMessage}
+        setIsStopped={setIsStopped}
+        error={error}
+        reload={reload}
         messages={messages}
         typicalQuestions={typicalQuestions}
         addQuestion={addQuestion}
@@ -118,7 +124,6 @@ export function ChatBot({ repository }: ChatBotProps) {
         isLoading={isLoading}
         isSendMessage={isSendMessage}
         setIsSendMessage={setIsSendMessage}
-        reload={reload}
         stop={stop}
         isStopped={isStopped}
         setIsStopped={setIsStopped}

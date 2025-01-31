@@ -1,22 +1,36 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { MaterialSymbolsLightDirectorySync } from "../icons";
+import type { ChatRequestOptions, Message } from "ai";
 
 interface ChatMessageProps {
-  message: any;
+  message: Message;
   viewReasoning: boolean;
   setViewReasoning: (view: boolean) => void;
+  error: Error | undefined;
+  reload: (
+    chatRequestOptions?: ChatRequestOptions
+  ) => Promise<string | null | undefined>;
+  isSendMessage: boolean;
+  isLoading: boolean;
+  setIsStopped: (value: boolean) => void;
 }
 
 export function ChatMessage({
   message,
   viewReasoning,
   setViewReasoning,
+  error,
+  reload,
+  isSendMessage,
+  isLoading,
+  setIsStopped,
 }: ChatMessageProps) {
   return (
     <div
       className={cn(
-        "max-w-xs rounded-2xl p-2",
+        "max-w-xs rounded-2xl p-2 relative",
         message.role === "user"
           ? "ml-auto overflow-hidden bg-primary text-primary-foreground"
           : "mr-auto overflow-hidden bg-secondary text-secondary-foreground"
@@ -50,6 +64,15 @@ export function ChatMessage({
         </p>
       )}
 
+      {error && (
+        <>
+          <div>An error occurred.</div>
+          <button type="button" onClick={() => reload()}>
+            Retry
+          </button>
+        </>
+      )}
+
       <div>
         {message.content &&
           message.content.length > 0 &&
@@ -65,9 +88,28 @@ export function ChatMessage({
               );
             }
             return (
-              <p className="my-2 whitespace-pre-wrap" key={part + index}>
-                {part}
-              </p>
+              <div key={part + index}>
+                <p className="my-2 whitespace-pre-wrap">{part}</p>
+                {isSendMessage && !isLoading && message.role === "user" && (
+                  <Button
+                    className="rounded-full text-muted-foreground absolute bottom-1 right-1"
+                    variant="outline"
+                    size="icon"
+                    disabled={isLoading}
+                    onClick={() => {
+                      reload({
+                        data: JSON.stringify({
+                          role: "user",
+                          content: message.content,
+                        }),
+                      });
+                      setIsStopped(false);
+                    }}
+                  >
+                    <MaterialSymbolsLightDirectorySync />
+                  </Button>
+                )}
+              </div>
             );
           })}
       </div>

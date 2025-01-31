@@ -1,14 +1,22 @@
 import { CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChatMessage } from "./chat-message";
+import type { ChatRequestOptions, Message } from "ai";
 
 interface ChatContentProps {
-  messages: any[];
+  messages: Message[];
   typicalQuestions: string[];
   addQuestion: (question: string) => void;
   viewReasoning: boolean;
   setViewReasoning: (view: boolean) => void;
   chatContentRef: React.RefObject<HTMLDivElement>;
+  error: Error | undefined;
+  reload: (
+    chatRequestOptions?: ChatRequestOptions
+  ) => Promise<string | null | undefined>;
+  isLoading: boolean;
+  isSendMessage: boolean;
+  setIsStopped: (value: boolean) => void;
 }
 
 export function ChatContent({
@@ -18,6 +26,11 @@ export function ChatContent({
   viewReasoning,
   setViewReasoning,
   chatContentRef,
+  error,
+  reload,
+  isLoading,
+  isSendMessage,
+  setIsStopped,
 }: ChatContentProps) {
   return (
     <CardContent
@@ -43,6 +56,11 @@ export function ChatContent({
       )}
       {messages.map((message) => (
         <ChatMessage
+          isLoading={isLoading}
+          isSendMessage={isSendMessage}
+          setIsStopped={setIsStopped}
+          error={error}
+          reload={reload}
           key={message.id}
           message={message}
           viewReasoning={viewReasoning}
