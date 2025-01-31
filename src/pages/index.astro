@@ -53,7 +53,7 @@ export const prerender = true; // para hacer statica la pagina
           class="flex h-full w-full items-center justify-between gap-2 md:items-start"
         >
           <p
-            class="h-full md:w-3/4 md:border-r-2 md:pr-5 text-muted-foreground leading-loose"
+            class="md:h-full md:w-3/4 md:border-r-2 md:pr-5 text-muted-foreground leading-loose"
           >
             Hola, soy <span class="font-bold text-primary"
               >Iván Bongiovanni</span
@@ -74,7 +74,7 @@ export const prerender = true; // para hacer statica la pagina
         transition:name="repositories"
         link="/repositories"
         title="Repositorios"
-        className="h-full rounded-2xl transition-transform hover:scale-105"
+        className="md:h-full rounded-2xl transition-transform hover:scale-105"
         icon
       >
         <i
@@ -101,9 +101,7 @@ export const prerender = true; // para hacer statica la pagina
           data-lucide="user"
           slot="icon"
           class="mr-2 hover:text-primary duration-300 transition-colors"></i>
-        <section
-          class="flex h-full w-full items-center justify-between gap-2 md:items-start"
-        >
+        <section class="flex h-full w-full items-center justify-between gap-2">
           <ul class="list-disc space-y-4 h-full md:w-3/4 md:border-r-2 pl-5">
             {
               EXPERIENCES.map((exp) => (
@@ -196,7 +194,7 @@ export const prerender = true; // para hacer statica la pagina
         coordinates={coordinates}
       /> -->
 
-      <section class="flex flex-col gap-4 w-full col-span-2">
+      <section class="flex flex-col gap-4 w-full md:col-span-2">
         <CardInfo title="Frase Favorita" icon>
           <span slot="icon">
             <i
@@ -210,7 +208,7 @@ export const prerender = true; // para hacer statica la pagina
 
         <CurrentTimeCard time={tucumanTime} timeZone={timezone} />
 
-        <CardInfo className="col-span-1" title="Dato Curioso" icon>
+        <CardInfo title="Dato Curioso" icon>
           <i
             data-lucide="joystick"
             slot="icon"
