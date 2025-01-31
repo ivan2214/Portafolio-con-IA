@@ -144,7 +144,7 @@ export function ChatBot({ repository }: ChatBotProps) {
             ) : (
               <Badge className="rounded-2xl">IA: </Badge>
             )}
-            {message.reasoning && (
+            {message?.reasoning && (
               <Button
                 variant="outline"
                 size="sm"
@@ -155,9 +155,9 @@ export function ChatBot({ repository }: ChatBotProps) {
               </Button>
             )}
 
-            {viewReasoning && message.reasoning && (
+            {viewReasoning && message?.reasoning && (
               <p className="my-2 whitespace-pre-wrap text-muted-foreground">
-                {message.reasoning}
+                {message?.reasoning}
               </p>
             )}
 
