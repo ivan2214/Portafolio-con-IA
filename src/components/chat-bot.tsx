@@ -38,7 +38,7 @@ export function ChatBot({ repository }: ChatBotProps) {
   const [viewReasoning, setViewReasoning] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const chatContentRef = useRef<HTMLDivElement>(null);
-  const [isFinished, setIsFinished] = useState(false);
+
   const [isSendMessage, setIsSendMessage] = useState(false);
 
   const {
@@ -52,9 +52,6 @@ export function ChatBot({ repository }: ChatBotProps) {
   } = useChat({
     api: "/api/chat",
     body: { repositoryId: repository?.id },
-    onFinish(message, options) {
-      setIsFinished(true);
-    },
   });
 
   const typicalQuestions = [
