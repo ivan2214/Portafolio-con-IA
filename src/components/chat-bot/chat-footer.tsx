@@ -4,7 +4,6 @@ import { CardFooter } from "@/components/ui/card";
 
 import {
   EosIconsThreeDotsLoading,
-  MaterialSymbolsLightDirectorySync,
   RiSendPlaneFill,
   RiStopFill,
 } from "@/components/icons";
