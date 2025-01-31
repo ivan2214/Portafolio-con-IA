@@ -92,7 +92,9 @@ if (src && !images[src]) {
   </CardContent>
   {
     repository.language && (
-      <Badge className="absolute top-2 right-2">{repository.language}</Badge>
+      <Badge className="absolute rounded-2xl top-2 right-2">
+        {repository.language}
+      </Badge>
     )
   }
 </Card>
