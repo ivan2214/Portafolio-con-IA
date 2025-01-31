@@ -7,11 +7,9 @@ import CardInfo from "@/components/card-info.astro";
 
 import XCard from "@/components/x-card.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { cn } from "@/lib/utils";
 
 import { Image } from "astro:assets";
 import CurrentTimeCard from "@/components/current-time-card.astro";
-import LocationCard from "@/components/location-card.astro";
 import { Button } from "@/components/ui/button";
 import { EXPERIENCES } from "@/constants";
 
@@ -19,8 +17,6 @@ const tucumanTime = new Date().toLocaleTimeString("es-AR", {
   timeZone: "America/Argentina/Tucuman",
   hour12: false,
 });
-
-const coordinates: [number, number] = [-26.9227, -65.3375]; // Latitude and Longitude for Tucumán
 
 const timezone = Intl.DateTimeFormat("es-AR").resolvedOptions().timeZone;
 
