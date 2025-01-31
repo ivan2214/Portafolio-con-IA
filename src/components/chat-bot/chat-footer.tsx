@@ -16,12 +16,16 @@ interface ChatFooterProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   isLoading: boolean;
   isSendMessage: boolean;
+  isStopped: boolean;
+  setIsStopped: (value: boolean) => void;
   setIsSendMessage: (value: boolean) => void;
   reload: () => void;
   stop: () => void;
 }
 
 export function ChatFooter({
+  isStopped,
+  setIsStopped,
   inputRef,
   input,
   handleInputChange,
@@ -46,6 +50,7 @@ export function ChatFooter({
           <Button
             onClick={() => {
               setIsSendMessage(true);
+              setIsStopped(false);
             }}
             className="rounded-2xl"
             disabled={isLoading}
@@ -58,16 +63,23 @@ export function ChatFooter({
               className="rounded-2xl"
               variant="outline"
               disabled={isLoading}
-              onClick={reload}
+              onClick={() => {
+                reload();
+                setIsStopped(false);
+              }}
             >
               <MaterialSymbolsLightDirectorySync />
             </Button>
           )}
-          {isSendMessage && (
+          {isSendMessage && !isStopped && (
             <Button
               className="rounded-2xl"
               variant="destructive"
-              onClick={stop}
+              onClick={() => {
+                stop();
+
+                setIsStopped(true);
+              }}
             >
               <RiStopFill />
             </Button>

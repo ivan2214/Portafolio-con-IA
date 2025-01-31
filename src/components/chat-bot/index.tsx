@@ -40,6 +40,7 @@ export function ChatBot({ repository }: ChatBotProps) {
   const [viewReasoning, setViewReasoning] = useState(false);
 
   const [isSendMessage, setIsSendMessage] = useState(false);
+  const [isStopped, setIsStopped] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null!);
   const chatContentRef = useRef<HTMLDivElement>(null!);
@@ -135,6 +136,8 @@ export function ChatBot({ repository }: ChatBotProps) {
         setIsSendMessage={setIsSendMessage}
         reload={reload}
         stop={stop}
+        isStopped={isStopped}
+        setIsStopped={setIsStopped}
       />
     </Card>
   );
