@@ -14,7 +14,13 @@ import { cn } from "@/lib/utils";
 import { useChat } from "ai/react";
 
 import { useEffect, useRef, useState } from "react";
-import { MaterialSymbolsCloseSmallOutline } from "@/components/icons";
+import {
+  EosIconsThreeDotsLoading,
+  MaterialSymbolsCloseSmallOutline,
+  MaterialSymbolsLightDirectorySync,
+  RiSendPlaneFill,
+  RiStopFill,
+} from "@/components/icons";
 
 interface ChatBotProps {
   repository: {
@@ -32,12 +38,24 @@ export function ChatBot({ repository }: ChatBotProps) {
   const [viewReasoning, setViewReasoning] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const chatContentRef = useRef<HTMLDivElement>(null);
+  const [isFinished, setIsFinished] = useState(false);
+  const [isSendMessage, setIsSendMessage] = useState(false);
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
-    useChat({
-      api: "/api/chat",
-      body: { repositoryId: repository?.id },
-    });
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    isLoading,
+    stop,
+    reload,
+  } = useChat({
+    api: "/api/chat",
+    body: { repositoryId: repository?.id },
+    onFinish(message, options) {
+      setIsFinished(true);
+    },
+  });
 
   const typicalQuestions = [
     "¿Cuál es el propósito principal de este proyecto?",
@@ -194,11 +212,41 @@ export function ChatBot({ repository }: ChatBotProps) {
             value={input}
             onChange={handleInputChange}
             placeholder="Pregunta sobre el proyecto..."
-            className="mr-2 flex-grow"
+            className="mr-2 flex-grow rounded-2xl"
           />
-          <Button disabled={isLoading} type="submit">
-            {isLoading ? "Enviando..." : "Enviar"}
-          </Button>
+          <section className="flex items-center gap-2">
+            <Button
+              onClick={() => {
+                setIsSendMessage(true);
+              }}
+              className="rounded-2xl"
+              disabled={isLoading}
+              type="submit"
+            >
+              {isLoading ? <EosIconsThreeDotsLoading /> : <RiSendPlaneFill />}
+            </Button>
+            {isSendMessage && (
+              <Button
+                className="rounded-2xl"
+                variant="outline"
+                disabled={isLoading}
+                onClick={() => {
+                  reload();
+                }}
+              >
+                <MaterialSymbolsLightDirectorySync />
+              </Button>
+            )}
+            {isSendMessage && (
+              <Button
+                className="rounded-2xl"
+                variant="destructive"
+                onClick={stop}
+              >
+                <RiStopFill />
+              </Button>
+            )}
+          </section>
         </form>
       </CardFooter>
     </Card>

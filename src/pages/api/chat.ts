@@ -120,7 +120,6 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Contar tokens en el contexto
     const tokens = encoder.encode(contextText).length;
-    console.log(`Tokens en el contexto: ${tokens}`);
 
     const maxTokens = 4750 + 189; // Máximo de tokens permitidos por llamada
 
