@@ -1,5 +1,6 @@
 ---
 import bitMojiHi from "@/assets/bitmoji/hi.webp";
+import bitMojiWork from "@/assets/bitmoji/work.webp";
 // images
 
 import CardInfo from "@/components/card-info.astro";
@@ -31,12 +32,17 @@ export const prerender = true; // para hacer statica la pagina
   description="Iván Bongiovani - Full Stack Developer - Portfolio, Repositories, CV, About Me, Contact, Timezone, Now, Experience, X, Studies, Study, Twitter, Github Tailwindcss, React, Nextjs, Vitejs, Express, Nestjs, Prisma, Docker, Git, JavaScript, TypeScript, Astro, Shadcn"
 >
   <section class="container mx-auto p-10">
-    <h1 class="mb-8 font-bold text-3xl text-primary">
-      Bienvenido a mi portafolio. Explora mis repositorios y conversa con una IA
-      capaz de responder cualquier pregunta sobre ellos, desde la tecnología
-      utilizada hasta detalles sobre funcionalidades específicas y explicaciones
-      del código.
-    </h1>
+    <section class="mb-8 flex flex-col gap-4">
+      <h1 class="font-bold text-4xl">
+        Hola, soy <span class="text-primary">Iván Bongiovani</span>
+      </h1>
+      <p class="text-lg font-light leading-loose text-muted-foreground">
+        Desarrollador Full Stack enfocado en construir aplicaciones web
+        escalables e inteligentes con
+        <strong>Next.js, Astro, Node.js, Prisma</strong> y más.
+      </p>
+    </section>
+
     <section class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       <CardInfo className="h-full md:col-span-2" title="Sobre Mí" icon>
         <i
@@ -46,7 +52,9 @@ export const prerender = true; // para hacer statica la pagina
         <section
           class="flex h-full w-full items-center justify-between gap-2 md:items-start"
         >
-          <p class="h-full md:w-3/4 md:border-r-2 md:pr-5">
+          <p
+            class="h-full md:w-3/4 md:border-r-2 md:pr-5 text-muted-foreground leading-loose"
+          >
             Hola, soy <span class="font-bold text-primary"
               >Iván Bongiovanni</span
             >, un desarrollador full stack apasionado por aprender nuevas
@@ -76,50 +84,16 @@ export const prerender = true; // para hacer statica la pagina
         <section
           class="flex h-full w-full items-center justify-between gap-2 md:items-start"
         >
-          <p class="h-full">
-            En este espacio, podras encontrar mis proyectos y contribuciones a
-            Github
+          <p class="h-full text-muted-foreground leading-loose">
+            ¿Ya viste mis proyectos destacados? Si quieres conocer cómo trabajo,
+            aquí tienes mis repositorios de GitHub para que descubras de primera
+            mano lo que soy capaz de construir.
           </p>
         </section>
       </CardInfo>
 
-      <CardInfo title="Frase Favorita" icon>
-        <span
-          slot="icon"
-          class={cn("mr-2", Math.random() > 0.5 && "text-primary")}
-        >
-          <i
-            data-lucide="quote"
-            slot="icon"
-            class="mr-2 hover:text-primary duration-300 transition-colors"></i>
-        </span>
-        <p>"A mover las manitas" - midudev</p>
-      </CardInfo>
-
       <CardInfo
-        className="col-span-1 md:col-span-2"
-        title="Proyecto Actual"
-        icon
-      >
-        <i
-          data-lucide="laptop"
-          slot="icon"
-          class="mr-2 hover:text-primary duration-300 transition-colors"></i>
-        <p>
-          Actualmente, estoy desarrollando una aplicación con inteligencia
-          artificial que ofrece recomendaciones personalizadas para mejorar un
-          CV, basándose en la descripción de una oferta laboral y el CV anterior
-          del usuario.
-        </p>
-      </CardInfo>
-
-      <LocationCard
-        className="col-span-1 md:row-span-3 md:h-full"
-        coordinates={coordinates}
-      />
-
-      <CardInfo
-        className="col-span-1 md:col-span-2 md:row-span-2"
+        className="col-span-1 md:col-span-2 md:h-full"
         title="Experiencia"
         icon
       >
@@ -127,28 +101,38 @@ export const prerender = true; // para hacer statica la pagina
           data-lucide="user"
           slot="icon"
           class="mr-2 hover:text-primary duration-300 transition-colors"></i>
-        <ul class="list-disc pl-5">
-          {
-            EXPERIENCES.map((exp) => (
-              <li>
-                <h3 class="font-semibold text-lg">{exp.position}</h3>
-                {exp.link ? (
-                  <a
-                    class="text-primary text-sm underline"
-                    href={exp?.link ?? ""}
-                  >
-                    {exp.company}
-                  </a>
-                ) : (
-                  <p class="text-primary text-sm"> {exp.company} </p>
-                )}
-                <p class="text-gray-400 text-sm">
-                  {exp.start} - {exp.end}
-                </p>
-              </li>
-            ))
-          }
-        </ul>
+        <section
+          class="flex h-full w-full items-center justify-between gap-2 md:items-start"
+        >
+          <ul class="list-disc space-y-4 h-full md:w-3/4 md:border-r-2 pl-5">
+            {
+              EXPERIENCES.map((exp) => (
+                <li>
+                  <h3 class="font-semibold text-lg">{exp.position}</h3>
+                  {exp.link ? (
+                    <a
+                      class="text-primary text-sm underline"
+                      href={exp?.link ?? ""}
+                    >
+                      {exp.company}
+                    </a>
+                  ) : (
+                    <p class="text-primary text-sm"> {exp.company} </p>
+                  )}
+                  <p class="text-muted-foreground text-sm">
+                    {exp.start} - {exp.end}
+                  </p>
+                </li>
+              ))
+            }
+          </ul>
+          <Image
+            src={bitMojiWork}
+            class="hidden aspect-square w-1/4 object-cover object-center md:block"
+            alt="Personaje animado saludando con una mano"
+            loading="eager"
+          />
+        </section>
       </CardInfo>
 
       <CardInfo title="Currículo" icon>
@@ -189,19 +173,45 @@ export const prerender = true; // para hacer statica la pagina
         </div>
       </CardInfo>
 
-      <section class="col-span-1 flex flex-col justify-center gap-4">
-        <CurrentTimeCard time={tucumanTime} timeZone={timezone} />
+      <XCard />
 
-        <CardInfo title="Dato Curioso" icon>
+      <CardInfo title="Proyecto Actual" icon>
+        <i
+          data-lucide="laptop"
+          slot="icon"
+          class="mr-2 hover:text-primary duration-300 transition-colors"></i>
+        <p class="text-muted-foreground leading-loose">
+          Actualmente, estoy desarrollando una aplicación con inteligencia
+          artificial que ofrece recomendaciones personalizadas para mejorar un
+          CV, basándose en la descripción de una oferta laboral y el CV anterior
+          del usuario.
+        </p>
+      </CardInfo>
+
+      <!--  <LocationCard
+        className="col-span-1 md:row-span-3 md:h-full"
+        coordinates={coordinates}
+      /> -->
+
+      <CardInfo title="Frase Favorita" icon>
+        <span slot="icon">
           <i
-            data-lucide="joystick"
+            data-lucide="quote"
             slot="icon"
             class="mr-2 hover:text-primary duration-300 transition-colors"></i>
-          <p>!Soy muy bueno jugando al Rocket League!</p>
-        </CardInfo>
-      </section>
+        </span>
+        <p class="text-muted-foreground">"A mover las manitas" - midudev</p>
+      </CardInfo>
 
-      <XCard />
+      <CurrentTimeCard time={tucumanTime} timeZone={timezone} />
+
+      <CardInfo title="Dato Curioso" icon>
+        <i
+          data-lucide="joystick"
+          slot="icon"
+          class="mr-2 hover:text-primary duration-300 transition-colors"></i>
+        <p class="text-muted-foreground">Soy alergico al cambio de clima!</p>
+      </CardInfo>
     </section>
   </section>
 </BaseLayout>

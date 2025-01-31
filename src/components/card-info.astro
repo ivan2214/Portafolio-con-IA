@@ -2,6 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import type { HTMLAttributes } from "astro/types";
+import type { HTMLAttributeAnchorTarget } from "react";
 
 interface Props extends HTMLAttributes<"div"> {
   title?: string;
@@ -9,9 +10,10 @@ interface Props extends HTMLAttributes<"div"> {
   classNameContent?: string;
   link?: string;
   icon?: boolean;
+  target?: HTMLAttributeAnchorTarget;
 }
 
-const { title, className, icon, classNameContent, link } = Astro.props;
+const { title, className, icon, classNameContent, link, target } = Astro.props;
 ---
 
 <Card
@@ -25,7 +27,7 @@ const { title, className, icon, classNameContent, link } = Astro.props;
 >
   {
     link ? (
-      <a rel="noopener noreferrer" href={link}>
+      <a rel="noopener noreferrer" target={target} href={link}>
         <CardHeader>
           <i
             class="position absolute right-6 group-hover:text-primary "

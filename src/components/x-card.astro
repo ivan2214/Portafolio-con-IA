@@ -5,6 +5,7 @@ import type { HTMLAttributes } from "astro/types";
 import CardInfo from "./card-info.astro";
 
 import bitMojiSurprised from "@/assets/bitmoji/surprised-phone.webp";
+import { cn } from "@/lib/utils";
 
 interface Props extends HTMLAttributes<"div"> {
   className?: string;
@@ -14,8 +15,9 @@ const { className } = Astro.props;
 ---
 
 <CardInfo
-  className={className}
+  className={cn("col-span-1 md:row-span-2 md:h-full", className)}
   link={NETWORKS[3].link}
+  target="_blank"
   title="Perfil de X"
   icon
 >
@@ -23,20 +25,20 @@ const { className } = Astro.props;
     data-lucide="twitter"
     slot="icon"
     class="mr-2 hover:text-primary duration-300 transition-colors"></i>
-  <div class="flex h-full w-full flex-col">
-    <div>
-      <Image
-        src={bitMojiSurprised}
-        class="aspect-auto h-full w-full object-cover object-center"
-        alt="Bitmoji of Ivan Bongiovanni with a phone"
-      />
-    </div>
-    <div>
-      <p class="mt-2 text-muted-foreground text-sm">
-        Si quieres ver mis tweets, puedes seguirme en X.
-      </p>
-    </div>
-  </div>
+
+  <section
+    class="h-full w-full flex flex-col items-center gap-4 justify-between"
+  >
+    <Image
+      src={bitMojiSurprised}
+      class="aspect-auto max-h-[70%] w-auto object-contain"
+      alt="Bitmoji of Ivan Bongiovanni with a phone"
+    />
+
+    <p class="text-muted-foreground leading-loose text-sm">
+      Si quieres ver mis tweets, puedes seguirme en X.
+    </p>
+  </section>
 </CardInfo>
 
 <script>
