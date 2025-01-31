@@ -22,7 +22,10 @@ const { className } = Astro.props;
   title="Perfil de X"
   icon
 >
-  <LineMdTwitterX className="mr-2" slot="icon" />
+  <LineMdTwitterX
+    className="mr-2 hover:text-primary duration-300 transition-colors"
+    slot="icon"
+  />
   <section
     class="h-full w-full flex flex-col items-center gap-4 justify-between"
   >
