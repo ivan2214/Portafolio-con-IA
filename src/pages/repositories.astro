@@ -6,8 +6,6 @@ import RepositoryList from "@/components/repository-list.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 export const prerender = true;
-
-const items = Array.from({ length: 10 }, (_, i) => i);
 ---
 
 <BaseLayout
@@ -17,7 +15,7 @@ const items = Array.from({ length: 10 }, (_, i) => i);
   <RepositoryList transition:animate="slide" server:defer>
     <Masonry slot="fallback">
       {
-        items.map((items) => (
+        Array.from({ length: 10 }, (_, i) => i).map(() => (
           <MasonryItem slot="items">
             <RepositoryCardSkeleton />
           </MasonryItem>

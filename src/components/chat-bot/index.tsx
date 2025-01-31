@@ -1,25 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { Card } from "@/components/ui/card";
 import { useChat } from "ai/react";
-import {
-  EosIconsThreeDotsLoading,
-  MaterialSymbolsCloseSmallOutline,
-  MaterialSymbolsLightDirectorySync,
-  RiSendPlaneFill,
-  RiStopFill,
-} from "@/components/icons";
 import { ChatHeader } from "./chat-header";
 import { ChatContent } from "./chat-content";
 import { ChatFooter } from "./chat-footer";
