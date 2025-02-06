@@ -1,5 +1,5 @@
 import type { NavLink, SocialLink } from "@/types";
-import { MdiGithub, MdiLinkedin, LineMdTwitterX } from "./components/icons";
+import { MdiGithub, MdiLinkedin, LineMdTwitterX } from "@/components/icons";
 
 export const NAV_LINKS: NavLink[] = [
   {
