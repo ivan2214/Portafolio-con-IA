@@ -6,6 +6,7 @@ import { Image } from "astro:assets";
 import bitMojiWaving from "@/assets/bitmoji/waving.webp";
 import NavLinks from "./nav-links.astro";
 import SocialLinks from "./social-links.astro";
+import { SOCIAL_LINKS } from "@/navigation";
 ---
 
 <header
@@ -34,7 +35,7 @@ import SocialLinks from "./social-links.astro";
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://www.linkedin.com/in/bongiovanni-ivan45"
+            href={SOCIAL_LINKS[1].href}
           >
             Contáctame
           </a>

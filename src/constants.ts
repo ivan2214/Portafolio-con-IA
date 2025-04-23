@@ -6,30 +6,6 @@ export const loaderAnimation = [
   { easing: "ease-out" },
 ];
 
-// Networks
-export const NETWORKS: Networks = [
-  {
-    network: "github",
-    link: "https://github.com/ivan2214",
-  },
-  {
-    network: "linkedin",
-    link: "https://www.linkedin.com/in/bongiovanni-ivan45/",
-  },
-  {
-    network: "gmail",
-    link: "mailto:bongiovanniivan12@gmail.com",
-  },
-  {
-    network: "x",
-    link: "https://x.com/bongiovanniDev",
-  },
-  {
-    network: "discord",
-    link: "https://discordapp.com/users/601604373822308375",
-  },
-];
-
 // Global
 export const SITE: Site = {
   TITLE: "Portafolio de Iván Bongiovanni",
@@ -57,7 +33,7 @@ export const STUDIES: Study[] = [
     institution:
       "Facultad de Ciencias Exactas y Tecnología de la Universidad Nacional de Tucumán ",
     link: "https://www.facet.unt.edu.ar",
-    date: "2022 - Presente",
+    date: "2024 - Presente",
   },
   {
     title: "Autodidacta",
@@ -67,9 +43,9 @@ export const STUDIES: Study[] = [
   },
   {
     title: "Perito Mercantil",
-    institution: "Instituto Padre Manuel Ballesteros",
+    institution: "Instituto Secundario Padre Manuel Ballesteros",
     link: "https://www.facebook.com/Colegio.IPMB/",
-    date: "2024 - 2025",
+    date: "2016 - 2021",
   },
 ];
 

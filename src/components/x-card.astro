@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { NETWORKS } from "@/constants";
+import { SOCIAL_LINKS } from "@/navigation";
 import type { HTMLAttributes } from "astro/types";
 import CardInfo from "./card-info.astro";
 
@@ -17,7 +17,7 @@ const { className } = Astro.props;
 
 <CardInfo
   className={cn("col-span-1 md:row-span-2 md:h-full", className)}
-  link={NETWORKS[3].link}
+  link={SOCIAL_LINKS[2].href}
   target="_blank"
   title="Perfil de X"
   icon

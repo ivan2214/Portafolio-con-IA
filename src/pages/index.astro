@@ -1,6 +1,7 @@
 ---
 import bitMojiHi from "@/assets/bitmoji/hi.webp";
 import bitMojiWork from "@/assets/bitmoji/work.webp";
+import bitMojiEducation from "@/assets/bitmoji/education.webp";
 // images
 
 import CardInfo from "@/components/card-info.astro";
@@ -11,7 +12,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import CurrentTimeCard from "@/components/current-time-card.astro";
 import { Button } from "@/components/ui/button";
-import { EXPERIENCES } from "@/constants";
+import { EXPERIENCES, STUDIES } from "@/constants";
 
 const tucumanTime = new Date().toLocaleTimeString("es-AR", {
   timeZone: "America/Argentina/Tucuman",
@@ -28,17 +29,6 @@ export const prerender = true; // para hacer statica la pagina
   description="Iván Bongiovani - Full Stack Developer - Portfolio, Repositories, CV, About Me, Contact, Timezone, Now, Experience, X, Studies, Study, Twitter, Github Tailwindcss, React, Nextjs, Vitejs, Express, Nestjs, Prisma, Docker, Git, JavaScript, TypeScript, Astro, Shadcn"
 >
   <section class="container mx-auto p-10">
-    <section class="mb-8 flex flex-col gap-4">
-      <h1 class="font-bold text-4xl">
-        Hola, soy <span class="text-primary">Iván Bongiovani</span>
-      </h1>
-      <p class="text-lg font-light leading-loose text-muted-foreground">
-        Desarrollador Full Stack enfocado en construir aplicaciones web
-        escalables e inteligentes con
-        <strong>Next.js, Astro, Node.js, Prisma</strong> y más.
-      </p>
-    </section>
-
     <section class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       <CardInfo className="h-full md:col-span-2" title="Sobre Mí" icon>
         <i
@@ -48,15 +38,20 @@ export const prerender = true; // para hacer statica la pagina
         <section
           class="flex h-full w-full items-center justify-between gap-2 md:items-start"
         >
-          <p
+          <div
             class="md:h-full md:w-3/4 md:border-r-2 md:pr-5 text-muted-foreground leading-loose"
           >
-            Hola, soy <span class="font-bold text-primary"
-              >Iván Bongiovanni</span
-            >, un desarrollador full stack apasionado por aprender nuevas
-            tecnologías, con un enfoque especial en inteligencia artificial y la
-            creación de soluciones innovadoras.
-          </p>
+            <h1 class="font-bold text-4xl">
+              Hola, soy <span class="text-primary">Iván Bongiovani</span>
+            </h1>
+            <p class="text-lg font-light leading-loose text-muted-foreground">
+              un desarrollador full stack apasionado por aprender nuevas
+              tecnologías, con un enfoque especial en inteligencia artificial y
+              la creación de soluciones innovadoras. Enfocado en construir
+              aplicaciones web escalables e inteligentes con
+              <strong>Next.js, Astro, Node.js, Prisma</strong> y más.
+            </p>
+          </div>
           <Image
             src={bitMojiHi}
             class="hidden aspect-square w-1/4 object-cover object-center md:block"
@@ -136,14 +131,14 @@ export const prerender = true; // para hacer statica la pagina
           class="mr-2 hover:text-primary duration-300 transition-colors"></i>
         <figure>
           <object
-            aria-label="CV Ivan Bongiovanni Front End Developer 2024"
-            data={"/pdf/CV-Bongiovanni-Ivan-Front-End-ats.pdf"}
+            aria-label="CV Ivan Bongiovanni Full stack Developer 2025"
+            data={"/pdf/CV-Full-Ivan-Bongiovanni.pdf"}
             type="application/pdf"
             width="100%"
             aria-labelledby="pdf-title"
           >
             <figcaption id="pdf-title">
-              CV Ivan Bongiovanni Front End Developer 2024
+              CV Ivan Bongiovanni Full stack Developer 2025
             </figcaption>
           </object>
         </figure>
@@ -179,9 +174,9 @@ export const prerender = true; // para hacer statica la pagina
           slot="icon"
           class="mr-2 hover:text-primary duration-300 transition-colors"></i>
         <p class="text-muted-foreground leading-loose">
-          Estoy desarrollando una app con inteligencia artificial que analiza
-          ofertas laborales y CVs previos para ofrecer recomendaciones
-          personalizadas y mejorar la empleabilidad del usuario.
+          Estoy desarrollando una app integrada con IA que genera líneas de
+          tiempo y la posibilidad de poder hablar con la ia sobre ese video en
+          cuestion, con autenticación y gestión de usuarios.
         </p>
       </CardInfo>
 
@@ -212,6 +207,49 @@ export const prerender = true; // para hacer statica la pagina
           <p class="text-muted-foreground">Soy alergico al cambio de clima!</p>
         </CardInfo>
       </section>
+
+      <!-- 
+      Educacion card
+       -->
+
+      <CardInfo
+        className="col-span-1 md:col-span-2 md:h-full"
+        title="Educación"
+        icon
+      >
+        <i
+          data-lucide="file"
+          slot="icon"
+          class="mr-2 hover:text-primary duration-300 transition-colors"></i>
+        <section class="flex h-full w-full items-center justify-between gap-2">
+          <Image
+            src={bitMojiEducation}
+            class="hidden aspect-square w-1/4 object-cover object-center md:block"
+            alt="Personaje animado cargando unos libros"
+            loading="eager"
+          />
+          <ul class="list-disc space-y-4 h-full md:w-3/4 md:border-l-2 pl-10">
+            {
+              STUDIES.map((study) => (
+                <li>
+                  <h3 class="font-semibold text-lg">{study.title}</h3>
+                  {study.link ? (
+                    <a
+                      class="text-primary text-sm underline"
+                      href={study?.link ?? ""}
+                    >
+                      {study.institution}
+                    </a>
+                  ) : (
+                    <p class="text-primary text-sm"> {study.institution} </p>
+                  )}
+                  <p class="text-muted-foreground text-sm">{study.date}</p>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+      </CardInfo>
     </section>
   </section>
 </BaseLayout>
